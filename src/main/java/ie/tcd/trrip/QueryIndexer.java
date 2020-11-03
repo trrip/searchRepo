@@ -80,6 +80,7 @@ import org.apache.lucene.search.DocIdSetIterator;
             String biblo = new String();
             String token = new String(); 
             while((line=br.readLine()) != null )  {
+                System.out.println("this is the line " +line);
                 if (line.contains(".I ")){
                     token = "I Token";
                 }
