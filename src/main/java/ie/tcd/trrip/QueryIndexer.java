@@ -63,7 +63,7 @@ public class DataFetcher {
     public ArrayList<DocumentModel> allDocument  ;
 
     private DataFetcher(){
-        this.allDocument  = ArrayList<DocumentModel>;
+        this.allDocument  = new ArrayList<DocumentModel>();
 
         try  
         {  
