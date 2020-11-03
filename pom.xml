@@ -98,7 +98,7 @@
               <createDependencyReducedPom>false</createDependencyReducedPom>
               <transformers>
                 <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
-                  <mainClass>ie.tcd.trrip.QueryIndex</mainClass>
+                  <mainClass>ie.tcd.trrip.QueryIndexer</mainClass>
                 </transformer>
               </transformers>
             </configuration>
