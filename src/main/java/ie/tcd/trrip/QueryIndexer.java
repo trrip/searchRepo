@@ -75,10 +75,10 @@ import org.apache.lucene.search.DocIdSetIterator;
             String line;
             DocumentModel model;
             String title = new String();
-            String content = new String(;
-            String author = new String(;
-            String biblo = new String(;
-            String token = new String(; 
+            String content = new String();
+            String author = new String();
+            String biblo = new String();
+            String token = new String(); 
             while((line=br.readLine()) != null )  {
                 if (line.contains(".I ")){
                     token = "I Token";
