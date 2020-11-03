@@ -64,7 +64,7 @@ public class DataFetcher {
 
     public ArrayList<DocumentModel> allDocument  ;
 
-    private DataFetcher(){
+    public DataFetcher(){
         this.allDocument  = new ArrayList<DocumentModel>();
 
         try  
