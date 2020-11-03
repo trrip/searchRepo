@@ -40,7 +40,7 @@ import org.apache.lucene.search.IndexSearcher;
 import org.apache.lucene.search.DocIdSetIterator;
 
 
-public class DocumentModel { 
+private class DocumentModel { 
 
     public String title;
     public String content;
@@ -60,7 +60,7 @@ public class DocumentModel {
 }
 
 
-public class DataFetcher {
+private class DataFetcher {
 
     public ArrayList<DocumentModel> allDocument  ;
 
