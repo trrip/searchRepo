@@ -80,20 +80,29 @@ import org.apache.lucene.search.DocIdSetIterator;
             String biblo = new String();
             String token = new String(); 
             while((line=br.readLine()) != null )  {
-                System.out.println("this is the line " +line);
                 if (line.contains(".I ")){
+                    System.out.println("Reading index " +line);
+
                     token = "I Token";
                 }
-                else if (line.equals(".T ")){
+                else if (line.equals(".T")){
+                    System.out.println("Reading Title " +line);
+
                     token = "T Token";
                 }
-                else if (line.equals(".W ")){
+                else if (line.equals(".W")){
+                    System.out.println("Reading COntent " +line);
+
                     token = "C Token";
                 }
-                else if (line.equals(".A ")){
+                else if (line.equals(".A")){
+                    System.out.println("Reading Author " +line);
+
                     token = "A Token";
                 }
-                else if (line.equals(".B ")){
+                else if (line.equals(".B")){
+                    System.out.println("Reading Biblo " +line);
+
                     token = "B Token";
                 }
 
