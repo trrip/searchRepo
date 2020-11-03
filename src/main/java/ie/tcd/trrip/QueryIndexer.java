@@ -16,7 +16,7 @@ import org.apache.lucene.document.Document;
 
 import org.apache.lucene.store.Directory;
 import org.apache.lucene.store.FSDirectory;
-
+import java.util.ArrayList; // import the ArrayList class
 import org.apache.lucene.index.Term;
 import org.apache.lucene.index.Terms;
 import org.apache.lucene.index.Fields;
