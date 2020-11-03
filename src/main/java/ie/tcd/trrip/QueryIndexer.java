@@ -264,11 +264,11 @@ public class QueryIndexer
     public static void main(String[] args) throws IOException
     {
         
-        if (args.length <= 0)
-        {
-            System.out.println("Expected corpus as input");
-            System.exit(1);            
-        }
+        // if (args.length <= 0)
+        // {
+        //     System.out.println("Expected corpus as input");
+        //     System.exit(1);            
+        // }
 
         DataFetcher fetcher = new DataFetcher();
         // QueryIndexer qi = new QueryIndexer();
