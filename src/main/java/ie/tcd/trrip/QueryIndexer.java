@@ -74,11 +74,11 @@ import org.apache.lucene.search.DocIdSetIterator;
             BufferedReader br=new BufferedReader(fr);  //creates a buffering character input stream  
             String line;
             DocumentModel model;
-            String title;
-            String content;
-            String author;
-            String biblo;
-            String token; 
+            String title = new String();
+            String content = new String(;
+            String author = new String(;
+            String biblo = new String(;
+            String token = new String(; 
             while((line=br.readLine()) != null )  {
                 if (line.contains(".I ")){
                     token = "I Token";
@@ -102,37 +102,25 @@ import org.apache.lucene.search.DocIdSetIterator;
                         
                     }else{
                         this.allDocument.add(new DocumentModel(title,content,author,biblo));
-                        content = null;
-                        author = null;
-                        biblo = null;
-                        title = null;
+                        content = new String();
+                        author = new String();
+                        biblo = new String();
+                        title = new String();
                     }
                     break;
                     case "T Token":
-                    if (title != null) {
-                        title = "";
-                    }
                     title += " "+line;
                     break;
 
                     case "C Token":
-                    if(content != null){
-                        content = "";
-                    }
                     content += " "+line;
                     break;
 
                     case "A Token":
-                    if(author != null){
-                        author = "";
-                    }
                     author += " "+line;
                     break;
 
                     case "B Token":
-                    if(biblo != null){
-                        biblo = "";
-                    }
                     biblo += " "+line;
                     break;
                     default:
