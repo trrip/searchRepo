@@ -47,7 +47,7 @@ public class DocumentModel {
     
 
     public DocumentModel(String title, String content, String author, String biblo){
-        System.out.println("this is the biblo i am adding to : " + biblo)
+        System.out.println("this is the biblo i am adding to : " + biblo);
 
         this.title = title;
         this.content = content;
@@ -99,7 +99,7 @@ public class DataFetcher {
                     if(content == null) {
                         
                     }else{
-                        this.allDocument.add(new DocumentModel(title,content,author,biblo))
+                        this.allDocument.add(new DocumentModel(title,content,author,biblo));
                         content = null;
                         author = null;
                         biblo = null;
@@ -134,7 +134,7 @@ public class DataFetcher {
                     biblo += " "+line;
                     break;
                     default:
-                    System.out.println("There is something wrong with token")
+                    System.out.println("There is something wrong with token");
 
                 }
             }  
@@ -279,7 +279,7 @@ public class QueryIndexer
             System.out.println("Expected corpus as input");
             System.exit(1);            
         }
-        
+
         DocumentFetcher fetcher = new DocumentFetcher();
         // QueryIndexer qi = new QueryIndexer();
         // qi.buildIndex(args);
