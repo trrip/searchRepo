@@ -13,7 +13,9 @@ import org.apache.lucene.analysis.standard.StandardAnalyzer;
 import org.apache.lucene.util.BytesRef;
 
 import org.apache.lucene.document.Document;
-
+import java.io.File;
+import java.io.FileReader;
+import java.io.BufferedReader;
 import org.apache.lucene.store.Directory;
 import org.apache.lucene.store.FSDirectory;
 import java.util.ArrayList; // import the ArrayList class
