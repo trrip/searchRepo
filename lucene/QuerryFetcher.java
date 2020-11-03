@@ -1,5 +1,3 @@
-package ie.tcd.dalyc24;
-
 import java.io.IOException;
 
 import java.util.Scanner;
@@ -165,7 +163,7 @@ public class QueryIndex
 
         QueryIndex qi = new QueryIndex();
         qi.buildIndex(args);
-        qi.postingsDemo();
+        // qi.postingsDemo();
         qi.shutdown();
     }
 }
