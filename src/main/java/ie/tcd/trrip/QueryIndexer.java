@@ -37,6 +37,123 @@ import org.apache.lucene.search.TermQuery;
 import org.apache.lucene.search.IndexSearcher;
 import org.apache.lucene.search.DocIdSetIterator;
 
+
+public class DocumentModel { 
+
+    public String title;
+    public String content;
+    public String author;
+    public String biblo;
+    
+
+    public DocumentModel(String title, String content, String author, String biblo){
+        System.out.println("this is the biblo i am adding to : " + biblo)
+
+        this.title = title;
+        this.content = content;
+        this.author = author;
+        this.biblo = biblo;     
+    }
+
+}
+
+
+public class DataFetcher {
+
+    public ArrayList<DocumentModel> allDocument  ;
+
+    private DataFetcher(){
+        this.allDocument  = ArrayList<DocumentModel>;
+
+        try  
+        {  
+            File file=new File("data/cran.txt");    //creates a new file instance  
+            FileReader fr=new FileReader(file);   //reads the file  
+            BufferedReader br=new BufferedReader(fr);  //creates a buffering character input stream  
+            String line;
+            DocumentModel model;
+            String title;
+            String content;
+            String author;
+            String biblo;
+            String token; 
+            while((line=br.readLine()) != null )  {
+                if (line.contains(".I ")){
+                    token = "I Token";
+                }
+                else if (line.equals(".T ")){
+                    token = "T Token";
+                }
+                else if (line.equals(".W ")){
+                    token = "C Token";
+                }
+                else if (line.equals(".A ")){
+                    token = "A Token";
+                }
+                else if (line.equals(".B ")){
+                    token = "B Token";
+                }
+
+                switch(token){
+                    case "I Token":
+                    if(content == null) {
+                        
+                    }else{
+                        this.allDocument.add(new DocumentModel(title,content,author,biblo))
+                        content = null;
+                        author = null;
+                        biblo = null;
+                        title = null;
+                    }
+                    break;
+                    case "T Token":
+                    if(title ! == null){
+                        title = "";
+                    }
+                    title += " "+line;
+                    break;
+
+                    case "C Token":
+                    if(content ! == null){
+                        content = "";
+                    }
+                    content += " "+line;
+                    break;
+
+                    case "A Token":
+                    if(author ! == null){
+                        author = "";
+                    }
+                    author += " "+line;
+                    break;
+
+                    case "B Token":
+                    if(biblo ! == null){
+                        biblo = "";
+                    }
+                    biblo += " "+line;
+                    break;
+                    default:
+                    System.out.println("There is something wrong with token")
+
+                }
+            }  
+            fr.close();    //closes the stream and release the resources  
+            System.out.println("Reading file compleated.");  
+        }  
+        catch(IOException e)  
+        {  
+            e.printStackTrace();  
+        }   
+
+    }
+
+
+
+}
+
+
+
 public class QueryIndexer
 {
     
@@ -162,10 +279,11 @@ public class QueryIndexer
             System.out.println("Expected corpus as input");
             System.exit(1);            
         }
-
-        QueryIndexer qi = new QueryIndexer();
-        qi.buildIndex(args);
-        qi.postingsDemo();
-        qi.shutdown();
+        
+        DocumentFetcher fetcher = new DocumentFetcher();
+        // QueryIndexer qi = new QueryIndexer();
+        // qi.buildIndex(args);
+        // qi.postingsDemo();
+        // qi.shutdown();
     }
 }
