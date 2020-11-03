@@ -282,7 +282,7 @@ public class QueryIndexer
             System.exit(1);            
         }
 
-        DocumentFetcher fetcher = new DocumentFetcher();
+        DataFetcher fetcher = new DataFetcher();
         // QueryIndexer qi = new QueryIndexer();
         // qi.buildIndex(args);
         // qi.postingsDemo();
