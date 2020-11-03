@@ -107,28 +107,28 @@ public class DataFetcher {
                     }
                     break;
                     case "T Token":
-                    if(title ! == null){
+                    if (title != null) {
                         title = "";
                     }
                     title += " "+line;
                     break;
 
                     case "C Token":
-                    if(content ! == null){
+                    if(content != null){
                         content = "";
                     }
                     content += " "+line;
                     break;
 
                     case "A Token":
-                    if(author ! == null){
+                    if(author != null){
                         author = "";
                     }
                     author += " "+line;
                     break;
 
                     case "B Token":
-                    if(biblo ! == null){
+                    if(biblo != null){
                         biblo = "";
                     }
                     biblo += " "+line;
