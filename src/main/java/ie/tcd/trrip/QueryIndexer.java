@@ -82,34 +82,34 @@ import org.apache.lucene.search.DocIdSetIterator;
                     // System.out.println("Reading index " +line);
 
                     token = "I Token";
-                    continue;
+                    // continue;
                 }
                 else if (line.equals(".T")){
                     // System.out.println("Reading Title " +line);
 
                     token = "T Token";
-                    continue;
+                    // continue;
 
                 }
                 else if (line.equals(".W")){
                     // System.out.println("Reading COntent " +line);
 
                     token = "C Token";
-                    continue;
+                    // continue;
 
                 }
                 else if (line.equals(".A")){
                     // System.out.println("Reading Author " +line);
 
                     token = "A Token";
-                    continue;
+                    // continue;
 
                 }
                 else if (line.equals(".B")){
                     // System.out.println("Reading Biblo " +line);
 
                     token = "B Token";
-                    continue;
+                    // continue;
 
                 }
 
