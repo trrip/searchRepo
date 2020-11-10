@@ -267,7 +267,7 @@ public class QueryIndexer
     {
 
         Query queryTerm = new TermQuery(new Term("content",text));
-        System.out.println("this : " + isearcher.search(queryTerm, 1));
+        System.out.println("this : " + isearcher.search(queryTerm, 1000).scoreDocs);
         ScoreDoc[] hits = isearcher.search(queryTerm, 1).scoreDocs;
         
         // Make sure we actually found something
