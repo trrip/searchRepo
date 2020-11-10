@@ -276,7 +276,7 @@ public class QueryIndexer
             query.add(new
                 BooleanClause(term1,BooleanClause.Occur.SHOULD)); //OR
             
-            }
+            
         }
         ScoreDoc[] hits = isearcher.search(query, 100).scoreDocs;
         System.out.println(" this : " + hits.length);
