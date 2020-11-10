@@ -247,7 +247,7 @@ public class QueryIndexer
 
     public void fetchQuerryScore(ArrayList<DocumentModel> list)throws IOException{
 
-        System.out.println("we are not working on the querry");
+        System.out.println("we are not working on the querry" + list.length());
         for (DocumentModel model : list){
             this.searchQuerry(model.content);
         }
