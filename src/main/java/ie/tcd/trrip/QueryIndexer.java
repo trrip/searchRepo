@@ -247,7 +247,7 @@ public class QueryIndexer
 
     public void fetchQuerryScore(ArrayList<DocumentModel> list)throws IOException{
 
-        
+        System.out.println("we are not working on the querry");
         for (DocumentModel model : list){
             this.searchQuerry(model.content);
         }
@@ -261,7 +261,7 @@ public class QueryIndexer
         // Use IndexSearcher to retrieve some arbitrary document from the index        
         IndexSearcher isearcher = new IndexSearcher(ireader);
         Query queryTerm = new TermQuery(new Term("content",text));
-        System.out.println("this si the text : "+ text);
+        // System.out.println("this si the text : "+ text);
         ScoreDoc[] hits = isearcher.search(queryTerm, 1).scoreDocs;
         
         // Make sure we actually found something
@@ -334,11 +334,12 @@ public class QueryIndexer
         // }
 
         DataFetcher fetcher = new DataFetcher("data/cran.txt");
-        DataFetcher querryFetcher = new DataFetcher("data/cranquerry.txt");
         
         QueryIndexer indexer = new QueryIndexer();
 
         indexer.insertFileIndex(fetcher.allDocument);
+        DataFetcher querryFetcher = new DataFetcher("data/cranquerry.txt");
+
         indexer.fetchQuerryScore(querryFetcher.allDocument);
 
         // QueryIndexer qi = new QueryIndexer();
