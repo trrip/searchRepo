@@ -249,15 +249,17 @@ public class QueryIndexer
 
     public void fetchQuerryScore(ArrayList<DocumentModel> list)throws IOException{
         DirectoryReader ireader = DirectoryReader.open(this.directory);
-    
+        int counter = 0;
         // Use IndexSearcher to retrieve some arbitrary document from the index        
         IndexSearcher isearcher = new IndexSearcher(ireader);
-        System.out.println("we are not working on the querry" + list);
         for (DocumentModel model : list){
+            counter ++;
+            System.out.printf("." + counter);
+
             this.searchQuerry(model.content,isearcher,ireader);
         }
                 // close everything when we're done
-                ireader.close();
+        ireader.close();
   
     }
 
@@ -280,7 +282,7 @@ public class QueryIndexer
 
         // Get the fields associated with the document (filename and content)
         Fields fields = ireader.getTermVectors(docID);
-
+        System.out.println("printing result");
         for (String field : fields)
         {
             // For each field, get the terms it contains i.e. unique words
@@ -311,10 +313,10 @@ public class QueryIndexer
                     long totFreq = ireader.totalTermFreq(term);
 
                     // print the results
-                    System.out.printf(
-                        "%-16s : freq = %4d : totfreq = %4d : docfreq = %4d\n",
-                        termString, freq, totFreq, docFreq
-                    );
+                    // System.out.println(
+                    //     "%-16s : freq = %4d : totfreq = %4d : docfreq = %4d\n",
+                    //     termString, freq, totFreq, docFreq
+                    // );
                 }
             }
         }
