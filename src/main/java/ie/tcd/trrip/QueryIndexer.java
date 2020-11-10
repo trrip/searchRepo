@@ -248,20 +248,22 @@ public class QueryIndexer
     }
 
     public void fetchQuerryScore(ArrayList<DocumentModel> list)throws IOException{
-
-        System.out.println("we are not working on the querry" + list);
-        for (DocumentModel model : list){
-            this.searchQuerry(model.content);
-        }
-  
-    }
-
-    public void searchQuerry(String text) throws IOException
-    {
         DirectoryReader ireader = DirectoryReader.open(this.directory);
     
         // Use IndexSearcher to retrieve some arbitrary document from the index        
         IndexSearcher isearcher = new IndexSearcher(ireader);
+        System.out.println("we are not working on the querry" + list);
+        for (DocumentModel model : list){
+            this.searchQuerry(model.content,isearcher);
+        }
+                // close everything when we're done
+                ireader.close();
+  
+    }
+
+    public void searchQuerry(String text,IndexSearcher isearcher) throws IOException
+    {
+
         Query queryTerm = new TermQuery(new Term("content",text));
         // System.out.println("this si the text : "+ text);
         ScoreDoc[] hits = isearcher.search(queryTerm, 1).scoreDocs;
@@ -269,7 +271,7 @@ public class QueryIndexer
         // Make sure we actually found something
         if (hits.length <= 0)
         {
-            System.out.println("Failed to retrieve a document");
+           // System.out.println("Failed to retrieve a document");
             return;
         }
 
@@ -317,8 +319,7 @@ public class QueryIndexer
             }
         }
 
-        // close everything when we're done
-        ireader.close();
+
     }
 
     public void shutdown() throws IOException
