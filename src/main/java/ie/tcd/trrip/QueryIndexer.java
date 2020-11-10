@@ -124,6 +124,7 @@ import org.apache.lucene.search.DocIdSetIterator;
                         if(content == null) {
                             
                         }else{
+                            System.out.println("we are now writing a new doc");
                             this.allDocument.add(new DocumentModel(title,content,author,biblo));
                             content = new String();
                             author = new String();
@@ -247,7 +248,7 @@ public class QueryIndexer
 
     public void fetchQuerryScore(ArrayList<DocumentModel> list)throws IOException{
 
-        System.out.println("we are not working on the querry" + list.length);
+        System.out.println("we are not working on the querry" + list);
         for (DocumentModel model : list){
             this.searchQuerry(model.content);
         }
