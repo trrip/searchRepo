@@ -77,48 +77,37 @@ import org.apache.lucene.search.DocIdSetIterator;
             String author = new String();
             String biblo = new String();
             String token = new String(); 
-            boolean isTokenLine = false;
             while((line=br.readLine()) != null )  {
                 if (line.contains(".I ")){
                     // System.out.println("Reading index " +line);
-                    isTokenLine = true;
                     token = "I Token";
                     // continue;
                 }
                 else if (line.equals(".T")){
                     // System.out.println("Reading Title " +line);
-                    isTokenLine = true;
-
                     token = "T Token";
                     // continue;
 
                 }
                 else if (line.equals(".W")){
                     // System.out.println("Reading COntent " +line);
-                    isTokenLine = true;
-
                     token = "C Token";
                     // continue;
 
                 }
                 else if (line.equals(".A")){
                     // System.out.println("Reading Author " +line);
-                    isTokenLine = true;
-
                     token = "A Token";
                     // continue;
 
                 }
                 else if (line.equals(".B")){
                     // System.out.println("Reading Biblo " +line);
-                    isTokenLine = true;
-
                     token = "B Token";
                     // continue;
 
                 }
-                if(!isTokenLine){
-               
+
                     switch(token){
                         case "I Token":
                         if(content == null) {
@@ -133,29 +122,41 @@ import org.apache.lucene.search.DocIdSetIterator;
                         }
                         break;
                         case "T Token":
-                        title += " "+line;
+                        if(line.equals(".T")){
+
+                        }else{
+                            content += " "+line;
+                        }
                         break;
 
                         case "C Token":
-                        content += " "+line;
+                        if(line.equals(".W")){
+
+                        }else{
+                            content += " "+line;
+                        }
                         break;
 
                         case "A Token":
-                        author += " "+line;
+                        if(line.equals(".A")){
+
+                        }else{
+                            content += " "+line;
+                        }
                         break;
 
                         case "B Token":
-                        biblo += " "+line;
+                        if(line.equals(".B")){
+
+                        }else{
+                            content += " "+line;
+                        }
                         break;
                         default:
                         System.out.println("There is something wrong with token");
 
                     }
-                 // continue;
-               }
-               else{
-                    isTokenLine = false;
-               }
+
             }  
             fr.close();    //closes the stream and release the resources  
             System.out.println("Reading file compleated.");  
