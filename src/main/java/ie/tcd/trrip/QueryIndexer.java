@@ -49,8 +49,6 @@ import org.apache.lucene.search.DocIdSetIterator;
     
 
     public DocumentModel(String title, String content, String author, String biblo){
-        System.out.println("this is the biblo i am adding to : " + biblo);
-
         this.title = title;
         this.content = content;
         this.author = author;
@@ -169,6 +167,30 @@ public class QueryIndexer
         // initialize them here
         this.analyzer = new StandardAnalyzer();
         this.directory = FSDirectory.open(Paths.get(INDEX_DIRECTORY));
+    }
+
+    public void insertFileIndex(ArrayList<DocumentModel> list) throws IOException{
+        FieldType ft = new FieldType(TextField.TYPE_STORED);
+        ft.setTokenized(true); //done as default
+        ft.setStoreTermVectors(true);
+        ft.setStoreTermVectorPositions(true);
+        ft.setStoreTermVectorOffsets(true);
+        ft.setStoreTermVectorPayloads(true);
+
+        // create and configure an index writer
+        IndexWriterConfig config = new IndexWriterConfig(analyzer);
+        config.setOpenMode(IndexWriterConfig.OpenMode.CREATE);
+        IndexWriter iwriter = new IndexWriter(directory, config);
+
+        for (DocumentModel model : list)
+        {
+            doc.add(new StringField("filename", model.title, Field.Store.YES));
+            doc.add(new Field("content", model.content, ft));
+            iwriter.addDocument(doc);
+        }
+        
+        // close the writer
+        iwriter.close();
     }
 
     public void buildIndex(String[] args) throws IOException
