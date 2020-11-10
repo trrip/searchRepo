@@ -184,6 +184,7 @@ public class QueryIndexer
 
         for (DocumentModel model : list)
         {
+            Document doc = new Document();
             doc.add(new StringField("filename", model.title, Field.Store.YES));
             doc.add(new Field("content", model.content, ft));
             iwriter.addDocument(doc);
