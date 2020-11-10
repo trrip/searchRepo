@@ -113,7 +113,6 @@ import org.apache.lucene.search.DocIdSetIterator;
                         if(content == null) {
                             
                         }else{
-                            System.out.println("we are now writing a new doc");
                             this.allDocument.add(new DocumentModel(title,content,author,biblo));
                             content = new String();
                             author = new String();
@@ -254,7 +253,7 @@ public class QueryIndexer
         IndexSearcher isearcher = new IndexSearcher(ireader);
         for (DocumentModel model : list){
             counter ++;
-            System.out.printf("." + counter);
+            System.out.printf("." + counter + " " +  model.content );
 
             this.searchQuerry(model.content,isearcher,ireader);
         }
