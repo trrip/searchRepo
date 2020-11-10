@@ -39,6 +39,8 @@ import org.apache.lucene.search.TermQuery;
 import org.apache.lucene.search.IndexSearcher;
 import org.apache.lucene.search.DocIdSetIterator;
 
+import org.apache.lucene.search.BooleanQuery;
+import org.apache.lucene.search.BooleanClause;
 
  class DocumentModel { 
 
