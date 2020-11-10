@@ -249,13 +249,16 @@ public class QueryIndexer
     public void fetchQuerryScore(ArrayList<DocumentModel> list)throws IOException{
         DirectoryReader ireader = DirectoryReader.open(this.directory);
         int counter = 0;
+        Query query;
         // Use IndexSearcher to retrieve some arbitrary document from the index        
         IndexSearcher isearcher = new IndexSearcher(ireader);
         for (DocumentModel model : list){
             counter ++;
             System.out.printf("." + counter + " " +  model.content );
-
-            this.searchQuerry(model.content,isearcher,ireader);
+            query = queryParser.parse(model.content);
+            ScoreDoc[] hits = isearcher.search(query, 1000);
+            System.out.println("result : "+ hits);
+            // this.searchQuerry(model.content,isearcher,ireader);
         }
                 // close everything when we're done
         ireader.close();
@@ -267,7 +270,7 @@ public class QueryIndexer
 
         Query queryTerm = new TermQuery(new Term("content",text));
         // System.out.println("this si the text : "+ text);
-        ScoreDoc[] hits = isearcher.search(queryTerm, 1).scoreDocs;
+        ScoreDoc[] hits = isearcher.search(queryTerm).scoreDocs;
         
         // Make sure we actually found something
         if (hits.length <= 0)
