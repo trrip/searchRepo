@@ -62,12 +62,12 @@ import org.apache.lucene.search.DocIdSetIterator;
 
     public ArrayList<DocumentModel> allDocument  ;
 
-    public DataFetcher(){
+    public DataFetcher(String fileName){
         this.allDocument  = new ArrayList<DocumentModel>();
 
         try  
         {  
-            File file=new File("data/cran.txt");    //creates a new file instance  
+            File file=new File(fileName/*"data/cran.txt"*/);    //creates a new file instance  
             FileReader fr=new FileReader(file);   //reads the file  
             BufferedReader br=new BufferedReader(fr);  //creates a buffering character input stream  
             String line;
@@ -79,27 +79,27 @@ import org.apache.lucene.search.DocIdSetIterator;
             String token = new String(); 
             while((line=br.readLine()) != null )  {
                 if (line.contains(".I ")){
-                    System.out.println("Reading index " +line);
+                    // System.out.println("Reading index " +line);
 
                     token = "I Token";
                 }
                 else if (line.equals(".T")){
-                    System.out.println("Reading Title " +line);
+                    // System.out.println("Reading Title " +line);
 
                     token = "T Token";
                 }
                 else if (line.equals(".W")){
-                    System.out.println("Reading COntent " +line);
+                    // System.out.println("Reading COntent " +line);
 
                     token = "C Token";
                 }
                 else if (line.equals(".A")){
-                    System.out.println("Reading Author " +line);
+                    // System.out.println("Reading Author " +line);
 
                     token = "A Token";
                 }
                 else if (line.equals(".B")){
-                    System.out.println("Reading Biblo " +line);
+                    // System.out.println("Reading Biblo " +line);
 
                     token = "B Token";
                 }
@@ -225,13 +225,23 @@ public class QueryIndexer
         iwriter.close();
     }
 
-    public void postingsDemo() throws IOException
+    public void fetchQuerryScore(ArrayList<DocumentModel> list)throws IOException{
+
+        
+        for (DocumentModel model : list){
+
+            this.searchQuerry(list.content);
+        }
+  
+    }
+
+    public void searchQuerry(String text) throws IOException
     {
         DirectoryReader ireader = DirectoryReader.open(directory);
     
         // Use IndexSearcher to retrieve some arbitrary document from the index        
         IndexSearcher isearcher = new IndexSearcher(ireader);
-        Query queryTerm = new TermQuery(new Term("content","raven"));
+        Query queryTerm = new TermQuery(new Term("content",text));
         ScoreDoc[] hits = isearcher.search(queryTerm, 1).scoreDocs;
         
         // Make sure we actually found something
@@ -303,10 +313,14 @@ public class QueryIndexer
         //     System.exit(1);            
         // }
 
-        DataFetcher fetcher = new DataFetcher();
+        DataFetcher fetcher = new DataFetcher("data/cran.txt");
+        DataFetcher querryFetcher = new DataFetcher("data/cranquerry.txt");
+        
         QueryIndexer indexer = new QueryIndexer();
 
         indexer.insertFileIndex(fetcher.allDocument);
+        indexer.fetchQuerryScore(querryFetcher.allDocument);
+
         // QueryIndexer qi = new QueryIndexer();
         // qi.buildIndex(args);
         // qi.postingsDemo();
