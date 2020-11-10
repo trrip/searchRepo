@@ -254,7 +254,7 @@ public class QueryIndexer
         IndexSearcher isearcher = new IndexSearcher(ireader);
         for (DocumentModel model : list){
             counter ++;
-            System.out.printf("." + counter + " " +  model.content );
+            System.out.printf("." + counter );
             query = queryParser.parse(model.content);
             ScoreDoc[] hits = isearcher.search(query, 1000);
             System.out.println("result : "+ hits);
