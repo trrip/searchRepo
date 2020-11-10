@@ -119,39 +119,40 @@ import org.apache.lucene.search.DocIdSetIterator;
                 }
                 if(isTokenLine){
                     isTokenLine = false;
-                    continue;
-                }
-                switch(token){
-                    case "I Token":
-                    if(content == null) {
-                        
-                    }else{
-                        this.allDocument.add(new DocumentModel(title,content,author,biblo));
-                        content = new String();
-                        author = new String();
-                        biblo = new String();
-                        title = new String();
+               
+                    switch(token){
+                        case "I Token":
+                        if(content == null) {
+                            
+                        }else{
+                            this.allDocument.add(new DocumentModel(title,content,author,biblo));
+                            content = new String();
+                            author = new String();
+                            biblo = new String();
+                            title = new String();
+                        }
+                        break;
+                        case "T Token":
+                        title += " "+line;
+                        break;
+
+                        case "C Token":
+                        content += " "+line;
+                        break;
+
+                        case "A Token":
+                        author += " "+line;
+                        break;
+
+                        case "B Token":
+                        biblo += " "+line;
+                        break;
+                        default:
+                        System.out.println("There is something wrong with token");
+
                     }
-                    break;
-                    case "T Token":
-                    title += " "+line;
-                    break;
-
-                    case "C Token":
-                    content += " "+line;
-                    break;
-
-                    case "A Token":
-                    author += " "+line;
-                    break;
-
-                    case "B Token":
-                    biblo += " "+line;
-                    break;
-                    default:
-                    System.out.println("There is something wrong with token");
-
-                }
+                 // continue;
+               }
             }  
             fr.close();    //closes the stream and release the resources  
             System.out.println("Reading file compleated.");  
