@@ -236,11 +236,12 @@ public class QueryIndexer
 
     public void searchQuerry(String text) throws IOException
     {
-        DirectoryReader ireader = DirectoryReader.open(directory);
+        DirectoryReader ireader = DirectoryReader.open(this.directory);
     
         // Use IndexSearcher to retrieve some arbitrary document from the index        
         IndexSearcher isearcher = new IndexSearcher(ireader);
         Query queryTerm = new TermQuery(new Term("content",text));
+        System.out.println("this si the text : "+ text);
         ScoreDoc[] hits = isearcher.search(queryTerm, 1).scoreDocs;
         
         // Make sure we actually found something
