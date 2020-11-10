@@ -180,7 +180,7 @@ public class QueryIndexer
         // create and configure an index writer
         IndexWriterConfig config = new IndexWriterConfig(analyzer);
         config.setOpenMode(IndexWriterConfig.OpenMode.CREATE);
-        IndexWriter iwriter = new IndexWriter(directory, config);
+        IndexWriter iwriter = new IndexWriter(this.directory, config);
 
         for (DocumentModel model : list)
         {
@@ -189,7 +189,7 @@ public class QueryIndexer
             doc.add(new Field("content", model.content, ft));
             iwriter.addDocument(doc);
         }
-        
+        System.out.println("we have compleated the writing part.");
         // close the writer
         iwriter.close();
     }
