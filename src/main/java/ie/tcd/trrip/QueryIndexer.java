@@ -229,8 +229,7 @@ public class QueryIndexer
 
         
         for (DocumentModel model : list){
-
-            this.searchQuerry(list.content);
+            this.searchQuerry(model.content);
         }
   
     }
