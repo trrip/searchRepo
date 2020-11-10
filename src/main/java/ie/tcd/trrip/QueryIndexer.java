@@ -27,8 +27,6 @@ import org.apache.lucene.index.PostingsEnum;
 import org.apache.lucene.index.DirectoryReader;
 import org.apache.lucene.index.IndexWriter;
 import org.apache.lucene.index.IndexWriterConfig;
-import org.apache.lucene.queryParser.QueryParser;
-import org.apache.lucene.util.Version;
 
 import org.apache.lucene.document.Field;
 import org.apache.lucene.document.FieldType;
@@ -115,6 +113,7 @@ import org.apache.lucene.search.DocIdSetIterator;
                         if(content == null) {
                             
                         }else{
+                            System.out.println("we are now writing a new doc");
                             this.allDocument.add(new DocumentModel(title,content,author,biblo));
                             content = new String();
                             author = new String();
@@ -251,20 +250,13 @@ public class QueryIndexer
     public void fetchQuerryScore(ArrayList<DocumentModel> list)throws IOException{
         DirectoryReader ireader = DirectoryReader.open(this.directory);
         int counter = 0;
-        Query query;
-        QueryParser queryParser  = new QueryParser(Version.LUCENE_36,
-        "content",
-        new StandardAnalyzer());;
-
         // Use IndexSearcher to retrieve some arbitrary document from the index        
         IndexSearcher isearcher = new IndexSearcher(ireader);
         for (DocumentModel model : list){
             counter ++;
-            System.out.printf("." + counter );
-            query = queryParser.parse(model.content);
-            ScoreDoc[] hits = isearcher.search(query, 1000);
-            System.out.println("result : "+ hits);
-            // this.searchQuerry(model.content,isearcher,ireader);
+            System.out.printf("." + counter);
+
+            this.searchQuerry(model.content,isearcher,ireader);
         }
                 // close everything when we're done
         ireader.close();
@@ -275,8 +267,8 @@ public class QueryIndexer
     {
 
         Query queryTerm = new TermQuery(new Term("content",text));
-        // System.out.println("this si the text : "+ text);
-        ScoreDoc[] hits = isearcher.search(queryTerm).scoreDocs;
+        System.out.println("this : " + isearcher.search(queryTerm, 1));
+        ScoreDoc[] hits = isearcher.search(queryTerm, 1).scoreDocs;
         
         // Make sure we actually found something
         if (hits.length <= 0)
