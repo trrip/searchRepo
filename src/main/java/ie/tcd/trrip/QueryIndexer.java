@@ -267,9 +267,22 @@ public class QueryIndexer
     {
 
         Query queryTerm = new TermQuery(new Term("content",text));
-        System.out.println(" this : " + isearcher.search(queryTerm, 1000).scoreDocs.length);
-        ScoreDoc[] hits = isearcher.search(queryTerm, 1).scoreDocs;
         
+        BooleanQuery.Builder query = new BooleanQuery.Builder();
+
+        for(String term :  model.content.split(" ")){
+            Query term1 = new TermQuery(new Term("content",term));
+
+            query.add(new
+                BooleanClause(term1,BooleanClause.Occur.SHOULD)); //OR
+            
+            }
+        }
+        ScoreDoc[] hits = isearcher.search(query, 100).scoreDocs;
+        System.out.println(" this : " + hits.length);
+
+
+
         // Make sure we actually found something
         if (hits.length <= 0)
         {
