@@ -77,7 +77,7 @@ import org.apache.lucene.search.DocIdSetIterator;
             String author = new String();
             String biblo = new String();
             String token = new String(); 
-            bool isTokenLine = false;
+            boolean isTokenLine = false;
             while((line=br.readLine()) != null )  {
                 if (line.contains(".I ")){
                     // System.out.println("Reading index " +line);
