@@ -254,14 +254,14 @@ public class QueryIndexer
         IndexSearcher isearcher = new IndexSearcher(ireader);
         System.out.println("we are not working on the querry" + list);
         for (DocumentModel model : list){
-            this.searchQuerry(model.content,isearcher);
+            this.searchQuerry(model.content,isearcher,ireader);
         }
                 // close everything when we're done
                 ireader.close();
   
     }
 
-    public void searchQuerry(String text,IndexSearcher isearcher) throws IOException
+    public void searchQuerry(String text,IndexSearcher isearcher,DirectoryReader ireader) throws IOException
     {
 
         Query queryTerm = new TermQuery(new Term("content",text));
