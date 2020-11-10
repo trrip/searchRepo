@@ -27,6 +27,8 @@ import org.apache.lucene.index.PostingsEnum;
 import org.apache.lucene.index.DirectoryReader;
 import org.apache.lucene.index.IndexWriter;
 import org.apache.lucene.index.IndexWriterConfig;
+import org.apache.lucene.queryParser.QueryParser;
+import org.apache.lucene.util.Version;
 
 import org.apache.lucene.document.Field;
 import org.apache.lucene.document.FieldType;
@@ -250,6 +252,10 @@ public class QueryIndexer
         DirectoryReader ireader = DirectoryReader.open(this.directory);
         int counter = 0;
         Query query;
+        QueryParser queryParser  = new QueryParser(Version.LUCENE_36,
+        "content",
+        new StandardAnalyzer());;
+
         // Use IndexSearcher to retrieve some arbitrary document from the index        
         IndexSearcher isearcher = new IndexSearcher(ireader);
         for (DocumentModel model : list){
