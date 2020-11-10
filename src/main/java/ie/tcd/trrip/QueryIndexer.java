@@ -77,15 +77,17 @@ import org.apache.lucene.search.DocIdSetIterator;
             String author = new String();
             String biblo = new String();
             String token = new String(); 
+            bool isTokenLine = false;
             while((line=br.readLine()) != null )  {
                 if (line.contains(".I ")){
                     // System.out.println("Reading index " +line);
-
+                    isTokenLine = true;
                     token = "I Token";
                     // continue;
                 }
                 else if (line.equals(".T")){
                     // System.out.println("Reading Title " +line);
+                    isTokenLine = true;
 
                     token = "T Token";
                     // continue;
@@ -93,6 +95,7 @@ import org.apache.lucene.search.DocIdSetIterator;
                 }
                 else if (line.equals(".W")){
                     // System.out.println("Reading COntent " +line);
+                    isTokenLine = true;
 
                     token = "C Token";
                     // continue;
@@ -100,6 +103,7 @@ import org.apache.lucene.search.DocIdSetIterator;
                 }
                 else if (line.equals(".A")){
                     // System.out.println("Reading Author " +line);
+                    isTokenLine = true;
 
                     token = "A Token";
                     // continue;
@@ -107,12 +111,16 @@ import org.apache.lucene.search.DocIdSetIterator;
                 }
                 else if (line.equals(".B")){
                     // System.out.println("Reading Biblo " +line);
+                    isTokenLine = true;
 
                     token = "B Token";
                     // continue;
 
                 }
-
+                if(isTokenLine){
+                    isTokenLine = false;
+                    continue;
+                }
                 switch(token){
                     case "I Token":
                     if(content == null) {
