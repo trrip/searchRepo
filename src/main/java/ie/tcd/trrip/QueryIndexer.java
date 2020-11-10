@@ -304,6 +304,9 @@ public class QueryIndexer
         // }
 
         DataFetcher fetcher = new DataFetcher();
+        QueryIndexer indexer = new QueryIndexer();
+
+        indexer.insertFileIndex(fetcher.allDocument);
         // QueryIndexer qi = new QueryIndexer();
         // qi.buildIndex(args);
         // qi.postingsDemo();
