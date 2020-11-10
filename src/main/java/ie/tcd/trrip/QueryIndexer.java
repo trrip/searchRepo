@@ -117,8 +117,7 @@ import org.apache.lucene.search.DocIdSetIterator;
                     // continue;
 
                 }
-                if(isTokenLine){
-                    isTokenLine = false;
+                if(!isTokenLine){
                
                     switch(token){
                         case "I Token":
@@ -152,6 +151,9 @@ import org.apache.lucene.search.DocIdSetIterator;
 
                     }
                  // continue;
+               }
+               else{
+                    isTokenLine = false;
                }
             }  
             fr.close();    //closes the stream and release the resources  
