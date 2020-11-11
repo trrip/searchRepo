@@ -292,14 +292,17 @@ public class QueryIndexer
             ScoreDoc[] hits = isearcher.search(query, 30).scoreDocs;
             String finalContent = "";
             // Print the results
+            System.out.printf(" c:" + counter);
             for (int i = 0; i < hits.length; i++)
             {
                 Document hitDoc = isearcher.doc(hits[i].doc);
                 // System.out.println(hitDoc.toString());
                 if(counter == 1){
-                    System.out.println(counter + " 0 " + hitDoc.get("id") + " " + (i+1)+ " " + hits[i].score );
+                    // System.out.println(counter + " 0 " + hitDoc.get("id") + " " + (i+1)+ " " + hits[i].score );
                 }
-                finalContent = finalContent + "\n" + counter + " 0 " + hitDoc.get("id") + " " + (i+1) + " " + hits[i].score + "Any";
+                // query-id 0 document-id relevance
+                // query-id Q0 document-id rank score STANDARD
+                finalContent = finalContent + "\n" + counter + " Q0 " + hitDoc.get("id") + " " + (i+1) + " " + hits[i].score + "STANDARD";
             }
             return finalContent;
 
