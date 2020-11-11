@@ -281,7 +281,7 @@ public class QueryIndexer
 		Analyzer analyzer = new StandardAnalyzer();
         QueryParser parser = new QueryParser("content", analyzer);
 
-
+        
         // if the user entered a querystring
         if (text.length() > 0)
         {
@@ -305,6 +305,10 @@ public class QueryIndexer
                 finalContent = finalContent + "\n" + counter + " Q0 " + hitDoc.get("id") + " " + (i+1) + " " + hits[i].score + "STANDARD";
             }
             return finalContent;
+
+        }
+        else{
+            System.out.printf(" c:" + text);
 
         }
         return "";
