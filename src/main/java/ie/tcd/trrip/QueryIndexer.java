@@ -272,7 +272,7 @@ public class QueryIndexer
         
         BooleanQuery.Builder query = new BooleanQuery.Builder();
 
-        for(String term :  text.content.split(" ")){
+        for(String term :  text.split(" ")){
             Query term1 = new TermQuery(new Term("content",term));
 
             query.add(new
