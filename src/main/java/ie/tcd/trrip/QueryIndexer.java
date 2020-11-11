@@ -201,7 +201,6 @@ public class QueryIndexer
             doc.add(new StringField("filename", model.title, Field.Store.YES));
             doc.add(new StringField("id", model.id, Field.Store.YES));
             doc.add(new Field("content", model.content, ft));
-                System.out.printf(":id : " + model.id);
             iwriter.addDocument(doc);
         }
         System.out.println("we have compleated the writing part.");
@@ -247,6 +246,8 @@ public class QueryIndexer
         IndexSearcher isearcher = new IndexSearcher(ireader);
         String finalContent = "";
         for (DocumentModel model : list){
+            System.out.printf(":id : " + model.id);
+
             counter ++;
             System.out.printf("." + counter);
 
