@@ -109,6 +109,9 @@ import org.apache.lucene.search.BooleanClause;
                         if(content == "") {
                         }else{
                             // System.out.println("we are now writing a new doc");
+                            if(this.id == "001"){
+                                System.out.println("this data : " + id);
+                            }
                             this.allDocument.add(new DocumentModel(title,content.replace(".W",""),author,biblo,id));
                             content = new String();
                             author = new String();
@@ -210,32 +213,32 @@ public class QueryIndexer
     public void buildIndex(String[] args) throws IOException
     {
 
-        // Create a new field type which will store term vector information
-        FieldType ft = new FieldType(TextField.TYPE_STORED);
-        ft.setTokenized(true); //done as default
-        ft.setStoreTermVectors(true);
-        ft.setStoreTermVectorPositions(true);
-        ft.setStoreTermVectorOffsets(true);
-        ft.setStoreTermVectorPayloads(true);
+        // // Create a new field type which will store term vector information
+        // FieldType ft = new FieldType(TextField.TYPE_STORED);
+        // ft.setTokenized(true); //done as default
+        // ft.setStoreTermVectors(true);
+        // ft.setStoreTermVectorPositions(true);
+        // ft.setStoreTermVectorOffsets(true);
+        // ft.setStoreTermVectorPayloads(true);
 
-        // create and configure an index writer
-        IndexWriterConfig config = new IndexWriterConfig(analyzer);
-        config.setOpenMode(IndexWriterConfig.OpenMode.CREATE);
-        IndexWriter iwriter = new IndexWriter(directory, config);  
+        // // create and configure an index writer
+        // IndexWriterConfig config = new IndexWriterConfig(analyzer);
+        // config.setOpenMode(IndexWriterConfig.OpenMode.CREATE);
+        // IndexWriter iwriter = new IndexWriter(directory, config);  
 
-        // Add all input documents to the index
-        for (String arg : args)
-        {
-            System.out.printf("Indexing \"%s\"\n", arg);
-            String content = new String(Files.readAllBytes(Paths.get(arg)));
-            Document doc = new Document();
-            doc.add(new StringField("filename", arg, Field.Store.YES));
-            doc.add(new Field("content", content, ft));
-            iwriter.addDocument(doc);
-        }
+        // // Add all input documents to the index
+        // for (String arg : args)
+        // {
+        //     System.out.printf("Indexing \"%s\"\n", arg);
+        //     String content = new String(Files.readAllBytes(Paths.get(arg)));
+        //     Document doc = new Document();
+        //     doc.add(new StringField("filename", arg, Field.Store.YES));
+        //     doc.add(new Field("content", content, ft));
+        //     iwriter.addDocument(doc);
+        // }
         
-        // close the writer
-        iwriter.close();
+        // // close the writer
+        // iwriter.close();
     }
 
     public void fetchQuerryScore(ArrayList<DocumentModel> list)throws IOException,ParseException{
