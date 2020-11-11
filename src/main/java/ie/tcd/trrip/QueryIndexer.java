@@ -6,7 +6,7 @@ import java.util.Scanner;
 
 import java.nio.file.Paths;
 import java.nio.file.Files;
-
+import java.io.FileWriter;
 import org.apache.lucene.analysis.Analyzer;
 import org.apache.lucene.analysis.standard.StandardAnalyzer;
 import java.io.BufferedWriter;
