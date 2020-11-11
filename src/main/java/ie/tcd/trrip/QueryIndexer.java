@@ -127,6 +127,9 @@ import org.apache.lucene.search.BooleanClause;
                         break;
 
                         case "C Token":
+                        if(id.equals("001")){
+                            System.out.println("this new : " + line);
+                        }
                             content += " "+line;
                         break;
 
