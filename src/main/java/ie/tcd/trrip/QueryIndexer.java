@@ -85,35 +85,23 @@ import org.apache.lucene.search.BooleanClause;
             String id = new String(); 
             while((line=br.readLine()) != null )  {
                 if (line.contains(".I ")){
-                    // System.out.println("Reading index " +line);
                     token = "I Token";
                     id = line.replace(".I ","");
-
-                    // continue;
                 }
                 else if (line.equals(".T")){
-                    // System.out.println("Reading Title " +line);
                     token = "T Token";
-                    // continue;
 
                 }
                 else if (line.equals(".W")){
-                    // System.out.println("Reading COntent " +line);
                     token = "C Token";
-                    // continue;
 
                 }
                 else if (line.equals(".A")){
-                    // System.out.println("Reading Author " +line);
                     token = "A Token";
-                    // continue;
 
                 }
                 else if (line.equals(".B")){
-                    // System.out.println("Reading Biblo " +line);
                     token = "B Token";
-                    // continue;
-
                 }
 
                     switch(token){
@@ -213,6 +201,9 @@ public class QueryIndexer
             doc.add(new StringField("filename", model.title, Field.Store.YES));
             doc.add(new StringField("id", model.id, Field.Store.YES));
             doc.add(new Field("content", model.content, ft));
+            if(model.id == "001"){
+                System.out.printf(": this is line : " + model.content);
+            }
             iwriter.addDocument(doc);
         }
         System.out.println("we have compleated the writing part.");
