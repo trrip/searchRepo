@@ -83,21 +83,18 @@ import org.apache.lucene.search.BooleanClause;
             String biblo = new String();
             String token = new String(); 
             String id = new String(); 
-            boolean isFirstTime =true;
             while((line=br.readLine()) != null )  {
                 if (line.contains(".I ")){
                     token = "I Token";
-                    if(content.equals("") || !isFirstTime) {
+                    if(id.equals("")) {
+
                     }else{
-                    if(id.equals("001")){
-                        System.out.println("this data : " + content);
+                        this.allDocument.add(new DocumentModel(title,content.replace(".W",""),author,biblo,id));
+                        content = new String();
+                        author = new String();
+                        biblo = new String();
+                        title = new String();
                     }
-                    this.allDocument.add(new DocumentModel(title,content.replace(".W",""),author,biblo,id));
-                    content = new String();
-                    author = new String();
-                    biblo = new String();
-                    title = new String();
-                }
                     id = line.replace(".I ","");
                 }
                 else if (line.equals(".T")){
@@ -131,9 +128,6 @@ import org.apache.lucene.search.BooleanClause;
 
                         case "C Token":
                             content += " "+line;
-                            if(id.equals("001")){
-                                System.out.println("this new : " + content);
-                            }
                         break;
 
                         case "A Token":
