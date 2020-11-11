@@ -259,7 +259,7 @@ public class QueryIndexer
             counter ++;
             System.out.printf("." + counter);
 
-            this.searchQuerry(model.content,isearcher,ireader);
+            this.searchQuerry(model.content.replace("?",""),isearcher,ireader);
         }
                 // close everything when we're done
         ireader.close();
