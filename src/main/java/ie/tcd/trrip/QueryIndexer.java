@@ -280,7 +280,7 @@ public class QueryIndexer
             
             
         }
-        ScoreDoc[] hits = isearcher.search(query, 1).scoreDocs;
+        ScoreDoc[] hits = isearcher.search(query.build(), 10).scoreDocs;
         System.out.println(" this : " + hits.length);
 
 
