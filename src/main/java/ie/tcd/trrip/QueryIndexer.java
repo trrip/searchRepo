@@ -268,73 +268,98 @@ public class QueryIndexer
     public void searchQuerry(String text,IndexSearcher isearcher,DirectoryReader ireader) throws IOException
     {
 
-        Query queryTerm = new TermQuery(new Term("content",text));
-        
-        BooleanQuery.Builder query = new BooleanQuery.Builder();
 
-        for(String term :  text.split(" ")){
-            Query term1 = new TermQuery(new Term("content",term));
-
-            query.add(new
-                BooleanClause(term1,BooleanClause.Occur.SHOULD)); //OR
-            
-            
-        }
-        ScoreDoc[] hits = isearcher.search(query.build(), 10).scoreDocs;
-        System.out.println(" this : " + hits.length);
+		Analyzer analyzer = new StandardAnalyzer();
+        QueryParser parser = new QueryParser("content", analyzer);
 
 
-
-        // Make sure we actually found something
-        if (hits.length <= 0)
+        // if the user entered a querystring
+        if (text.length() > 0)
         {
-           // System.out.println("Failed to retrieve a document");
-            return;
-        }
+            // parse the query with the parser
+            Query query = parser.parse(text);
 
-        // get the document ID of the first search result
-        int docID = hits[0].doc;
+            // Get the set of results
+            ScoreDoc[] hits = isearcher.search(query, MAX_RESULTS).scoreDocs;
 
-        // Get the fields associated with the document (filename and content)
-        Fields fields = ireader.getTermVectors(docID);
-        System.out.println("printing result");
-        for (String field : fields)
-        {
-            // For each field, get the terms it contains i.e. unique words
-            Terms terms = fields.terms(field);
+            // Print the results
+            System.out.println("Documents: " + hits.length);
+            for (int i = 0; i < hits.length; i++)
+            {
+                Document hitDoc = isearcher.doc(hits[i].doc);
+                System.out.println(i + ") " + hitDoc.get("filename") + " " + hits[i].score);
+                // PostingsEnum posting = null;
+                // posting = termsEnum.postings(posting, PostingsEnum.FREQS);
 
-            // Iterate over each term in the field
-            BytesRef termByte = null;
-            TermsEnum termsEnum = terms.iterator();
-
-            while ((termByte = termsEnum.next()) != null)
-            {                                
-                int id;
-
-                // for each term retrieve its postings list
-                PostingsEnum posting = null;
-                posting = termsEnum.postings(posting, PostingsEnum.FREQS);
-
-                // This only processes the single document we retrieved earlier
-                while ((id = posting.nextDoc()) != DocIdSetIterator.NO_MORE_DOCS)
-                {
-                    // convert the term from a byte array to a string
-                    String termString = termByte.utf8ToString();
+                // while ((id = posting.nextDoc()) != DocIdSetIterator.NO_MORE_DOCS)
+                // {
+                //     // convert the term from a byte array to a string
+                //     String termString = termByte.utf8ToString();
                     
-                    // extract some stats from the index
-                    Term term = new Term(field, termString);
-                    long freq = posting.freq();
-                    long docFreq = ireader.docFreq(term);
-                    long totFreq = ireader.totalTermFreq(term);
+                //     // extract some stats from the index
+                //     Term term = new Term(field, termString);
+                //     long freq = posting.freq();
+                //     long docFreq = ireader.docFreq(term);
+                //     long totFreq = ireader.totalTermFreq(term);
 
-                    // print the results
-                    // System.out.println(
-                    //     "%-16s : freq = %4d : totfreq = %4d : docfreq = %4d\n",
-                    //     termString, freq, totFreq, docFreq
-                    // );
-                }
+                //     // print the results
+                //     System.out.println(
+                //         "%-16s : freq = %4d : totfreq = %4d : docfreq = %4d\n",
+                //         termString, freq, totFreq, docFreq
+                //     );
+                // }
             }
         }
+        // // Make sure we actually found something
+        // if (hits.length <= 0)
+        // {
+        //    // System.out.println("Failed to retrieve a document");
+        //     return;
+        // }
+
+        // // get the document ID of the first search result
+        // int docID = hits[0].doc;
+
+        // // Get the fields associated with the document (filename and content)
+        // Fields fields = ireader.getTermVectors(docID);
+        // System.out.println("printing result");
+        // for (String field : fields)
+        // {
+        //     // For each field, get the terms it contains i.e. unique words
+        //     Terms terms = fields.terms(field);
+
+        //     // Iterate over each term in the field
+        //     BytesRef termByte = null;
+        //     TermsEnum termsEnum = terms.iterator();
+
+        //     while ((termByte = termsEnum.next()) != null)
+        //     {                                
+        //         int id;
+
+        //         // for each term retrieve its postings list
+        //         PostingsEnum posting = null;
+        //         posting = termsEnum.postings(posting, PostingsEnum.FREQS);
+
+        //         // This only processes the single document we retrieved earlier
+        //         while ((id = posting.nextDoc()) != DocIdSetIterator.NO_MORE_DOCS)
+        //         {
+        //             // convert the term from a byte array to a string
+        //             String termString = termByte.utf8ToString();
+                    
+        //             // extract some stats from the index
+        //             Term term = new Term(field, termString);
+        //             long freq = posting.freq();
+        //             long docFreq = ireader.docFreq(term);
+        //             long totFreq = ireader.totalTermFreq(term);
+
+        //             // print the results
+        //             System.out.println(
+        //                 "%-16s : freq = %4d : totfreq = %4d : docfreq = %4d\n",
+        //                 termString, freq, totFreq, docFreq
+        //             );
+        //         }
+        //     }
+        // }
 
 
     }
