@@ -106,10 +106,9 @@ import org.apache.lucene.search.BooleanClause;
 
                     switch(token){
                         case "I Token":
-                        if(content == "") {
+                        if(content.equals("")) {
                         }else{
-                            // System.out.println("we are now writing a new doc");
-                            if(id.contains("001")){
+                            if(id.equals("001")){
                                 System.out.println("this data : " + content);
                             }
                             this.allDocument.add(new DocumentModel(title,content.replace(".W",""),author,biblo,id));
