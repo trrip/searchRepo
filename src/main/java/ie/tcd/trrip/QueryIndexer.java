@@ -109,7 +109,7 @@ import org.apache.lucene.search.BooleanClause;
                         if(content == "") {
                         }else{
                             // System.out.println("we are now writing a new doc");
-                            if(id == "001"){
+                            if(id.contains("001")){
                                 System.out.println("this data : " + id);
                             }
                             this.allDocument.add(new DocumentModel(title,content.replace(".W",""),author,biblo,id));
