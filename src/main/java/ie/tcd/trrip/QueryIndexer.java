@@ -33,7 +33,7 @@ import org.apache.lucene.document.FieldType;
 import org.apache.lucene.document.TextField;
 import org.apache.lucene.document.StringField;
 import org.apache.lucene.queryparser.classic.QueryParser;
-// import org.apache.lucene.queryparser.classic.ParseException;
+import org.apache.lucene.queryparser.classic.ParseException;
 import org.apache.lucene.search.Query;
 import org.apache.lucene.search.ScoreDoc;
 import org.apache.lucene.search.TermQuery;
@@ -266,7 +266,7 @@ public class QueryIndexer
   
     }
 
-    public void searchQuerry(String text,IndexSearcher isearcher,DirectoryReader ireader) throws IOException
+    public void searchQuerry(String text,IndexSearcher isearcher,DirectoryReader ireader) throws IOException,ParseException
     {
 
 
