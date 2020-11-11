@@ -49,13 +49,15 @@ import org.apache.lucene.search.BooleanClause;
     public String content;
     public String author;
     public String biblo;
+    public String id;
     
 
-    public DocumentModel(String title, String content, String author, String biblo){
+    public DocumentModel(String title, String content, String author, String biblo,String id){
         this.title = title;
         this.content = content;
         this.author = author;
-        this.biblo = biblo;     
+        this.biblo = biblo;
+        this.id = id;     
     }
 
 }
@@ -80,6 +82,7 @@ import org.apache.lucene.search.BooleanClause;
             String author = new String();
             String biblo = new String();
             String token = new String(); 
+            String id = new String(); 
             while((line=br.readLine()) != null )  {
                 if (line.contains(".I ")){
                     // System.out.println("Reading index " +line);
@@ -114,10 +117,10 @@ import org.apache.lucene.search.BooleanClause;
                     switch(token){
                         case "I Token":
                         if(content == null) {
-                            
+                            id = line.replace(".I ","");
                         }else{
                             System.out.println("we are now writing a new doc");
-                            this.allDocument.add(new DocumentModel(title,content,author,biblo));
+                            this.allDocument.add(new DocumentModel(title,content,author,biblo,id));
                             content = new String();
                             author = new String();
                             biblo = new String();
@@ -211,6 +214,7 @@ public class QueryIndexer
         {
             Document doc = new Document();
             doc.add(new StringField("filename", model.title, Field.Store.YES));
+            doc.add(new StringField("id", model.id, Field.Store.YES));
             doc.add(new Field("content", model.content, ft));
             iwriter.addDocument(doc);
         }
@@ -259,14 +263,14 @@ public class QueryIndexer
             counter ++;
             System.out.printf("." + counter);
 
-            this.searchQuerry(model.content.replace("?",""),isearcher,ireader);
+            this.searchQuerry(model.content.replace("?",""),isearcher,ireader,counter);
         }
                 // close everything when we're done
         ireader.close();
   
     }
 
-    public void searchQuerry(String text,IndexSearcher isearcher,DirectoryReader ireader) throws IOException,ParseException
+    public void searchQuerry(String text,IndexSearcher isearcher,DirectoryReader ireader,int counter) throws IOException,ParseException
     {
 
 
@@ -281,14 +285,14 @@ public class QueryIndexer
             Query query = parser.parse(text);
 
             // Get the set of results
-            ScoreDoc[] hits = isearcher.search(query, 45).scoreDocs;
+            ScoreDoc[] hits = isearcher.search(query, 30).scoreDocs;
 
             // Print the results
             System.out.println("Documents: " + hits.length);
             for (int i = 0; i < hits.length; i++)
             {
                 Document hitDoc = isearcher.doc(hits[i].doc);
-                System.out.println(i + ") " + hitDoc.get("filename") + " " + hits[i].score);
+                System.out.println(counter + " 0 " + hitDoc.get("id") + " " + hits[i].score);
                 // PostingsEnum posting = null;
                 // posting = termsEnum.postings(posting, PostingsEnum.FREQS);
 
