@@ -214,7 +214,7 @@ public class QueryIndexer
         {
             Document doc = new Document();
             doc.add(new StringField("filename", model.title, Field.Store.YES));
-            doc.add(new StringField("id", model.id, Field.Store.YES));
+            doc.add(new StringField("id", model.id, ft));
             doc.add(new Field("content", model.content, ft));
             iwriter.addDocument(doc);
         }
@@ -288,10 +288,10 @@ public class QueryIndexer
             ScoreDoc[] hits = isearcher.search(query, 30).scoreDocs;
 
             // Print the results
-            System.out.println("Documents: " + hits.length);
             for (int i = 0; i < hits.length; i++)
             {
                 Document hitDoc = isearcher.doc(hits[i].doc);
+                System.out.println(hitDoc);
                 System.out.println(counter + " 0 " + hitDoc.get("id") + " " + hits[i].score);
                 // PostingsEnum posting = null;
                 // posting = termsEnum.postings(posting, PostingsEnum.FREQS);
