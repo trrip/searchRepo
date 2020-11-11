@@ -266,7 +266,7 @@ public class QueryIndexer
   
     }
 
-    public void searchQuerry(String text,IndexSearcher isearcher,DirectoryReader ireader) throws IOException,ParseException
+    public void searchQuerry(String text,IndexSearcher isearcher,DirectoryReader ireader) throws IOException
     {
 
 
@@ -370,7 +370,7 @@ public class QueryIndexer
         directory.close();
     }
 
-    public static void main(String[] args) throws IOException
+    public static void main(String[] args) throws IOException,ParseException
     {
         
         // if (args.length <= 0)
