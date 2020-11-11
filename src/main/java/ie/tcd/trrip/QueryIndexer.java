@@ -121,7 +121,7 @@ import org.apache.lucene.search.BooleanClause;
                         if(content == null) {
                         }else{
                             // System.out.println("we are now writing a new doc");
-                            this.allDocument.add(new DocumentModel(title,content,author,biblo,id));
+                            this.allDocument.add(new DocumentModel(title,content.replace(".W",""),author,biblo,id));
                             content = new String();
                             author = new String();
                             biblo = new String();
@@ -137,11 +137,7 @@ import org.apache.lucene.search.BooleanClause;
                         break;
 
                         case "C Token":
-                        if(line.equals(".W")){
-
-                        }else{
                             content += " "+line;
-                        }
                         break;
 
                         case "A Token":
