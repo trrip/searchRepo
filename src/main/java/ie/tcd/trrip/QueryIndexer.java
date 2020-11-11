@@ -291,7 +291,7 @@ public class QueryIndexer
             for (int i = 0; i < hits.length; i++)
             {
                 Document hitDoc = isearcher.doc(hits[i].doc);
-                System.out.println(hitDoc.fields());
+                System.out.println(hitDoc.toString());
                 System.out.println(counter + " 0 " + hitDoc.get("id") + " " + hits[i].score);
 
             }
