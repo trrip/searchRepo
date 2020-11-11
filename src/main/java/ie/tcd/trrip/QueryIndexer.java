@@ -87,6 +87,8 @@ import org.apache.lucene.search.BooleanClause;
                 if (line.contains(".I ")){
                     // System.out.println("Reading index " +line);
                     token = "I Token";
+                    id = line.replace(".I ","");
+
                     // continue;
                 }
                 else if (line.equals(".T")){
@@ -117,7 +119,6 @@ import org.apache.lucene.search.BooleanClause;
                     switch(token){
                         case "I Token":
                         if(content == null) {
-                            id = line.replace(".I ","");
                         }else{
                             // System.out.println("we are now writing a new doc");
                             this.allDocument.add(new DocumentModel(title,content,author,biblo,id));
@@ -131,7 +132,7 @@ import org.apache.lucene.search.BooleanClause;
                         if(line.equals(".T")){
 
                         }else{
-                            content += " "+line;
+                            title += " "+line;
                         }
                         break;
 
@@ -147,7 +148,7 @@ import org.apache.lucene.search.BooleanClause;
                         if(line.equals(".A")){
 
                         }else{
-                            content += " "+line;
+                            author += " "+line;
                         }
                         break;
 
@@ -155,7 +156,7 @@ import org.apache.lucene.search.BooleanClause;
                         if(line.equals(".B")){
 
                         }else{
-                            content += " "+line;
+                            biblo += " "+line;
                         }
                         break;
                         default:
