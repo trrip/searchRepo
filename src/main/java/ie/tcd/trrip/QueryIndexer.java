@@ -297,8 +297,8 @@ public class QueryIndexer
                 Document hitDoc = isearcher.doc(hits[i].doc);
                 // System.out.println(hitDoc.toString());
                 
-                System.out.println(counter + " 0 " + hitDoc.get("id") + " " + hits[i].score);
-                finalContent = finalContent + "\n" + counter + " 0 " + hitDoc.get("id") + " " + hits[i].score;
+                System.out.println(counter + " 0 " + hitDoc.get("id") + " " + hits[i].rank + " " + hits[i].score );
+                finalContent = finalContent + "\n" + counter + " Q0 " + hitDoc.get("id") + " " +hits[i].rank + " " + hits[i].score;
             }
             return finalContent;
 
@@ -316,7 +316,7 @@ public class QueryIndexer
 
         try {
             out = new BufferedWriter(new FileWriter("../index/result"));
-            out.write(content);
+            out.write(content.trim());
         } catch (IOException e) {
             e.printStackTrace();
         } finally {
