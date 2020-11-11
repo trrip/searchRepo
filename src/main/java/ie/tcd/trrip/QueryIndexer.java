@@ -250,7 +250,7 @@ public class QueryIndexer
         iwriter.close();
     }
 
-    public void fetchQuerryScore(ArrayList<DocumentModel> list)throws IOException{
+    public void fetchQuerryScore(ArrayList<DocumentModel> list)throws IOException,ParseException{
         DirectoryReader ireader = DirectoryReader.open(this.directory);
         int counter = 0;
         // Use IndexSearcher to retrieve some arbitrary document from the index        
@@ -266,7 +266,7 @@ public class QueryIndexer
   
     }
 
-    public void searchQuerry(String text,IndexSearcher isearcher,DirectoryReader ireader) throws IOException
+    public void searchQuerry(String text,IndexSearcher isearcher,DirectoryReader ireader) throws IOException,ParseException
     {
 
 
