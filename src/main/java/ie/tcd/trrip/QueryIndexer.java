@@ -214,7 +214,7 @@ public class QueryIndexer
         {
             Document doc = new Document();
             doc.add(new StringField("filename", model.title, Field.Store.YES));
-            doc.add(new StringField("id", model.id, ft));
+            doc.add(new StringField("id", model.id, Field.Store.YES));
             doc.add(new Field("content", model.content, ft));
             iwriter.addDocument(doc);
         }
@@ -291,80 +291,12 @@ public class QueryIndexer
             for (int i = 0; i < hits.length; i++)
             {
                 Document hitDoc = isearcher.doc(hits[i].doc);
-                System.out.println(hitDoc);
+                System.out.println(hitDoc.fields());
                 System.out.println(counter + " 0 " + hitDoc.get("id") + " " + hits[i].score);
-                // PostingsEnum posting = null;
-                // posting = termsEnum.postings(posting, PostingsEnum.FREQS);
 
-                // while ((id = posting.nextDoc()) != DocIdSetIterator.NO_MORE_DOCS)
-                // {
-                //     // convert the term from a byte array to a string
-                //     String termString = termByte.utf8ToString();
-                    
-                //     // extract some stats from the index
-                //     Term term = new Term(field, termString);
-                //     long freq = posting.freq();
-                //     long docFreq = ireader.docFreq(term);
-                //     long totFreq = ireader.totalTermFreq(term);
-
-                //     // print the results
-                //     System.out.println(
-                //         "%-16s : freq = %4d : totfreq = %4d : docfreq = %4d\n",
-                //         termString, freq, totFreq, docFreq
-                //     );
-                // }
             }
         }
-        // // Make sure we actually found something
-        // if (hits.length <= 0)
-        // {
-        //    // System.out.println("Failed to retrieve a document");
-        //     return;
-        // }
 
-        // // get the document ID of the first search result
-        // int docID = hits[0].doc;
-
-        // // Get the fields associated with the document (filename and content)
-        // Fields fields = ireader.getTermVectors(docID);
-        // System.out.println("printing result");
-        // for (String field : fields)
-        // {
-        //     // For each field, get the terms it contains i.e. unique words
-        //     Terms terms = fields.terms(field);
-
-        //     // Iterate over each term in the field
-        //     BytesRef termByte = null;
-        //     TermsEnum termsEnum = terms.iterator();
-
-        //     while ((termByte = termsEnum.next()) != null)
-        //     {                                
-        //         int id;
-
-        //         // for each term retrieve its postings list
-        //         PostingsEnum posting = null;
-        //         posting = termsEnum.postings(posting, PostingsEnum.FREQS);
-
-        //         // This only processes the single document we retrieved earlier
-        //         while ((id = posting.nextDoc()) != DocIdSetIterator.NO_MORE_DOCS)
-        //         {
-        //             // convert the term from a byte array to a string
-        //             String termString = termByte.utf8ToString();
-                    
-        //             // extract some stats from the index
-        //             Term term = new Term(field, termString);
-        //             long freq = posting.freq();
-        //             long docFreq = ireader.docFreq(term);
-        //             long totFreq = ireader.totalTermFreq(term);
-
-        //             // print the results
-        //             System.out.println(
-        //                 "%-16s : freq = %4d : totfreq = %4d : docfreq = %4d\n",
-        //                 termString, freq, totFreq, docFreq
-        //             );
-        //         }
-        //     }
-        // }
 
 
     }
