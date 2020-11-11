@@ -106,7 +106,7 @@ import org.apache.lucene.search.BooleanClause;
 
                     switch(token){
                         case "I Token":
-                        if(content == null) {
+                        if(content == "") {
                         }else{
                             // System.out.println("we are now writing a new doc");
                             this.allDocument.add(new DocumentModel(title,content.replace(".W",""),author,biblo,id));
@@ -162,7 +162,6 @@ import org.apache.lucene.search.BooleanClause;
 
 
 }
-
 
 
 public class QueryIndexer
