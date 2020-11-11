@@ -9,7 +9,7 @@ import java.nio.file.Files;
 
 import org.apache.lucene.analysis.Analyzer;
 import org.apache.lucene.analysis.standard.StandardAnalyzer;
-
+import java.io.BufferedWriter;
 import org.apache.lucene.util.BytesRef;
 
 import org.apache.lucene.document.Document;
@@ -260,18 +260,21 @@ public class QueryIndexer
         int counter = 0;
         // Use IndexSearcher to retrieve some arbitrary document from the index        
         IndexSearcher isearcher = new IndexSearcher(ireader);
+        String finalContent = "";
         for (DocumentModel model : list){
             counter ++;
             System.out.printf("." + counter);
 
-            this.searchQuerry(model.content.replace("?",""),isearcher,ireader,counter);
+            finalContent = finalContent + this.searchQuerry(model.content.replace("?",""),isearcher,ireader,counter);
         }
                 // close everything when we're done
         ireader.close();
+        this.writeToFile(finalContent);
+
   
     }
 
-    public void searchQuerry(String text,IndexSearcher isearcher,DirectoryReader ireader,int counter) throws IOException,ParseException
+    public String searchQuerry(String text,IndexSearcher isearcher,DirectoryReader ireader,int counter) throws IOException,ParseException
     {
 
 
@@ -287,19 +290,46 @@ public class QueryIndexer
 
             // Get the set of results
             ScoreDoc[] hits = isearcher.search(query, 30).scoreDocs;
-
+            String finalContent = "";
             // Print the results
             for (int i = 0; i < hits.length; i++)
             {
                 Document hitDoc = isearcher.doc(hits[i].doc);
                 // System.out.println(hitDoc.toString());
+                
                 System.out.println(counter + " 0 " + hitDoc.get("id") + " " + hits[i].score);
+                finalContent = finalContent + "\n" + counter + " 0 " + hitDoc.get("id") + " " + hits[i].score;
+            }
+            return finalContent;
 
+        }
+        return "";
+
+
+
+
+    }
+
+
+    public void writeToFile(String content) throws IOException{
+        BufferedWriter out = null;
+
+        try {
+            out = new BufferedWriter(new FileWriter("../index/result.txt"));
+            out.write(content);
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if(out != null){
+                    out.close();
+                } else {
+                    System.out.println("Buffer has not been initialized!");
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
             }
         }
-
-
-
     }
 
     public void shutdown() throws IOException
