@@ -151,6 +151,8 @@ import org.apache.lucene.search.BooleanClause;
                     }
 
             }  
+            this.allDocument.add(new DocumentModel(title,content.replace(".W",""),author,biblo,id));
+
             fr.close();    //closes the stream and release the resources  
             System.out.println("Reading file compleated.");  
         }  
@@ -247,11 +249,7 @@ public class QueryIndexer
         IndexSearcher isearcher = new IndexSearcher(ireader);
         String finalContent = "";
         for (DocumentModel model : list){
-            System.out.printf(":id : " + model.id);
-
             counter ++;
-            System.out.printf("." + counter);
-
             finalContent = finalContent + this.searchQuerry(model.content.replace("?",""),isearcher,ireader,counter);
         }
                 // close everything when we're done
@@ -279,23 +277,19 @@ public class QueryIndexer
             ScoreDoc[] hits = isearcher.search(query, 30).scoreDocs;
             String finalContent = "";
             // Print the results
-            System.out.printf(" c:" + counter);
             for (int i = 0; i < hits.length; i++)
             {
                 Document hitDoc = isearcher.doc(hits[i].doc);
-                // System.out.println(hitDoc.toString());
                 if(counter == 1){
-                    // System.out.println(counter + " 0 " + hitDoc.get("id") + " " + (i+1)+ " " + hits[i].score );
                 }
                 // query-id 0 document-id relevance
                 // query-id Q0 document-id rank score STANDARD
-                finalContent = finalContent + "\n" + counter + " Q0 " + hitDoc.get("id") + " " + (i+1) + " " + hits[i].score + "STANDARD";
+                finalContent = finalContent + "\n" + counter + " Q0 " + hitDoc.get("id") + " " + (i+1) + " " + hits[i].score + " STANDARD";
             }
             return finalContent;
 
         }
         else{
-            System.out.printf(" c:" + text);
 
         }
         return "";
