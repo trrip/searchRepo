@@ -201,9 +201,7 @@ public class QueryIndexer
             doc.add(new StringField("filename", model.title, Field.Store.YES));
             doc.add(new StringField("id", model.id, Field.Store.YES));
             doc.add(new Field("content", model.content, ft));
-            if(model.id.contains("001")){
-                System.out.println(": this is line : " + model.content);
-            }
+                System.out.printf(":id : " + model.id);
             iwriter.addDocument(doc);
         }
         System.out.println("we have compleated the writing part.");
