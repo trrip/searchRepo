@@ -298,7 +298,7 @@ public class QueryIndexer
                 // System.out.println(hitDoc.toString());
                 
                 System.out.println(counter + " 0 " + hitDoc.get("id") + " " + (i+1)+ " " + hits[i].score );
-                finalContent = finalContent + "\n" + counter + " Q0 " + hitDoc.get("id") + " " + (i+1) + " " + hits[i].score;
+                finalContent = finalContent + "\n" + counter + " 0 " + hitDoc.get("id") + " " + (i+1) + " " + hits[i].score;
             }
             return finalContent;
 
