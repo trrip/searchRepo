@@ -299,7 +299,7 @@ public class QueryIndexer
                 if(counter == 1){
                     System.out.println(counter + " 0 " + hitDoc.get("id") + " " + (i+1)+ " " + hits[i].score );
                 }
-                finalContent = finalContent + "\n" + counter + " 0 " + hitDoc.get("id") + " " + (i+1) + " " + hits[i].score;
+                finalContent = finalContent + "\n" + counter + " 0 " + hitDoc.get("id") + " " + (i+1) + " " + hits[i].score + "Any";
             }
             return finalContent;
 
