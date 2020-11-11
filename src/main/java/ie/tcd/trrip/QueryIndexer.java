@@ -214,7 +214,6 @@ public class QueryIndexer
         for (DocumentModel model : list)
         {
             Document doc = new Document();
-            System.out.println("name : " + model.title + "id "+ model.id);
             doc.add(new StringField("filename", model.title, Field.Store.YES));
             doc.add(new StringField("id", model.id, Field.Store.YES));
             doc.add(new Field("content", model.content, ft));
@@ -294,7 +293,7 @@ public class QueryIndexer
             {
                 Document hitDoc = isearcher.doc(hits[i].doc);
                 // System.out.println(hitDoc.toString());
-                // System.out.println(counter + " 0 " + hitDoc.get("id") + " " + hits[i].score);
+                System.out.println(counter + " 0 " + hitDoc.get("id") + " " + hits[i].score);
 
             }
         }
