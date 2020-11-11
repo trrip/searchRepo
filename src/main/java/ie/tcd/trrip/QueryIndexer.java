@@ -281,7 +281,7 @@ public class QueryIndexer
             Query query = parser.parse(text);
 
             // Get the set of results
-            ScoreDoc[] hits = isearcher.search(query, MAX_RESULTS).scoreDocs;
+            ScoreDoc[] hits = isearcher.search(query, 45).scoreDocs;
 
             // Print the results
             System.out.println("Documents: " + hits.length);
