@@ -315,7 +315,7 @@ public class QueryIndexer
         BufferedWriter out = null;
 
         try {
-            out = new BufferedWriter(new FileWriter("../index/result.txt"));
+            out = new BufferedWriter(new FileWriter("../index/result"));
             out.write(content);
         } catch (IOException e) {
             e.printStackTrace();
