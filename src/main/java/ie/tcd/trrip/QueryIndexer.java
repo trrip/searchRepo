@@ -43,7 +43,7 @@ import org.apache.lucene.search.DocIdSetIterator;
 import org.apache.lucene.search.BooleanQuery;
 import org.apache.lucene.search.BooleanClause;
 
- class DocumentModel { 
+class DocumentModel {  // model for the document input.
 
     public String title;
     public String content;
@@ -51,7 +51,7 @@ import org.apache.lucene.search.BooleanClause;
     public String biblo;
     public String id;
     
-
+    // Document constructor.
     public DocumentModel(String title, String content, String author, String biblo,String id){
         this.title = title;
         this.content = content;
@@ -63,9 +63,10 @@ import org.apache.lucene.search.BooleanClause;
 }
 
 
+// Controller class that controls the flow of the data.
  class DataFetcher {
 
-    public ArrayList<DocumentModel> allDocument  ;
+    public ArrayList<DocumentModel> allDocument  ; //document array.
 
     public DataFetcher(String fileName){
         this.allDocument  = new ArrayList<DocumentModel>();
@@ -83,6 +84,7 @@ import org.apache.lucene.search.BooleanClause;
             String biblo = new String();
             String token = new String(); 
             String id = new String(); 
+            // the reading and the speration logic where we create token for everything 
             while((line=br.readLine()) != null )  {
                 if (line.contains(".I ")){
                     token = "I Token";
@@ -151,6 +153,8 @@ import org.apache.lucene.search.BooleanClause;
                     }
 
             }  
+
+            // Adding all the document object 
             this.allDocument.add(new DocumentModel(title,content.replace(".W",""),author,biblo,id));
 
             fr.close();    //closes the stream and release the resources  
@@ -168,6 +172,7 @@ import org.apache.lucene.search.BooleanClause;
 }
 
 
+// indexer class where we index the data that was read and insert.
 public class QueryIndexer
 {
     
@@ -185,6 +190,7 @@ public class QueryIndexer
         this.directory = FSDirectory.open(Paths.get(INDEX_DIRECTORY));
     }
 
+    // inserthing the data using the analyzer.
     public void insertFileIndex(ArrayList<DocumentModel> list) throws IOException{
         FieldType ft = new FieldType(TextField.TYPE_STORED);
         ft.setTokenized(true); //done as default
@@ -200,48 +206,18 @@ public class QueryIndexer
 
         for (DocumentModel model : list)
         {
-            Document doc = new Document();
+            Document doc = new Document(); // creating a document 
             doc.add(new StringField("filename", model.title, Field.Store.YES));
             doc.add(new StringField("id", model.id, Field.Store.YES));
-            doc.add(new Field("content", model.content, ft));
+            doc.add(new Field("content", model.content, ft)); // creating content feild and then adding content to that.
             iwriter.addDocument(doc);
         }
         System.out.println("we have compleated the writing part.");
         // close the writer
-        iwriter.close();
+        iwriter.close(); // closing the writer.
     }
 
-    public void buildIndex(String[] args) throws IOException
-    {
-
-        // // Create a new field type which will store term vector information
-        // FieldType ft = new FieldType(TextField.TYPE_STORED);
-        // ft.setTokenized(true); //done as default
-        // ft.setStoreTermVectors(true);
-        // ft.setStoreTermVectorPositions(true);
-        // ft.setStoreTermVectorOffsets(true);
-        // ft.setStoreTermVectorPayloads(true);
-
-        // // create and configure an index writer
-        // IndexWriterConfig config = new IndexWriterConfig(analyzer);
-        // config.setOpenMode(IndexWriterConfig.OpenMode.CREATE);
-        // IndexWriter iwriter = new IndexWriter(directory, config);  
-
-        // // Add all input documents to the index
-        // for (String arg : args)
-        // {
-        //     System.out.printf("Indexing \"%s\"\n", arg);
-        //     String content = new String(Files.readAllBytes(Paths.get(arg)));
-        //     Document doc = new Document();
-        //     doc.add(new StringField("filename", arg, Field.Store.YES));
-        //     doc.add(new Field("content", content, ft));
-        //     iwriter.addDocument(doc);
-        // }
-        
-        // // close the writer
-        // iwriter.close();
-    }
-
+    // running the querry and writing to index file 
     public void fetchQuerryScore(ArrayList<DocumentModel> list)throws IOException,ParseException{
         DirectoryReader ireader = DirectoryReader.open(this.directory);
         int counter = 0;
@@ -259,9 +235,10 @@ public class QueryIndexer
   
     }
 
+
+    // Searches the querry and gets the score and return the specific format for trec eval.
     public String searchQuerry(String text,IndexSearcher isearcher,DirectoryReader ireader,int counter) throws IOException,ParseException
     {
-
 
 		Analyzer analyzer = new StandardAnalyzer();
         QueryParser parser = new QueryParser("content", analyzer);
@@ -284,7 +261,7 @@ public class QueryIndexer
                 }
                 // query-id 0 document-id relevance
                 // query-id Q0 document-id rank score STANDARD
-                finalContent = finalContent + "\n" + counter + " Q0 " + hitDoc.get("id") + " " + (i+1) + " " + hits[i].score + " STANDARD";
+                finalContent = finalContent + "\n" + counter + " Q0 " + hitDoc.get("id") + " " + (i+1) + " " + hits[i].score + " STANDARD"; // format for the trec eval
             }
             return finalContent;
 
@@ -295,7 +272,7 @@ public class QueryIndexer
         return "";
     }
 
-
+    // method for writing the content to file at the result path.
     public void writeToFile(String content) throws IOException{
         BufferedWriter out = null;
 
@@ -317,32 +294,19 @@ public class QueryIndexer
         }
     }
 
-    public void shutdown() throws IOException
-    {
-        directory.close();
-    }
 
     public static void main(String[] args) throws IOException,ParseException
     {
-        
-        // if (args.length <= 0)
-        // {
-        //     System.out.println("Expected corpus as input");
-        //     System.exit(1);            
-        // }
-
-        DataFetcher fetcher = new DataFetcher("data/cran.txt");
+    
+        DataFetcher fetcher = new DataFetcher("data/cran.txt"); // data path.
         
         QueryIndexer indexer = new QueryIndexer();
 
         indexer.insertFileIndex(fetcher.allDocument);
-        DataFetcher querryFetcher = new DataFetcher("data/cranquerry.txt");
 
-        indexer.fetchQuerryScore(querryFetcher.allDocument);
+        DataFetcher querryFetcher = new DataFetcher("data/cranquerry.txt"); // querry for search file path
 
-        // QueryIndexer qi = new QueryIndexer();
-        // qi.buildIndex(args);
-        // qi.postingsDemo();
-        // qi.shutdown();
+        indexer.fetchQuerryScore(querryFetcher.allDocument); // indexing and writing to file.
+
     }
 }
