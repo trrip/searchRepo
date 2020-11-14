@@ -11,8 +11,7 @@ import org.apache.lucene.analysis.Analyzer;
 import org.apache.lucene.analysis.standard.StandardAnalyzer;
 
 import org.apache.lucene.analysis.en.EnglishAnalyzer;
-import org.apache.lucene.analysis.core.StopAnalyzer;
-import org.apache.lucene.analysis.core.KeywordAnalyzer;
+
 import java.io.BufferedWriter;
 import org.apache.lucene.util.BytesRef;
 
@@ -189,7 +188,7 @@ public class QueryIndexer
     {
         // Need to use the same analyzer and index directory throughout, so
         // initialize them here
-        this.analyzer = new KeywordAnalyzer();
+        this.analyzer = new EnglishAnalyzer();
         this.directory = FSDirectory.open(Paths.get(INDEX_DIRECTORY));
     }
 
@@ -243,7 +242,7 @@ public class QueryIndexer
     public String searchQuerry(String text,IndexSearcher isearcher,DirectoryReader ireader,int counter) throws IOException,ParseException
     {
 
-		Analyzer analyzer = new KeywordAnalyzer();
+		Analyzer analyzer = new StandardAnalyzer();
         QueryParser parser = new QueryParser("content", analyzer);
 
         
