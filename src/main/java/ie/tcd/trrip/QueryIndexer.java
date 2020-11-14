@@ -10,7 +10,7 @@ import java.io.FileWriter;
 import org.apache.lucene.analysis.Analyzer;
 import org.apache.lucene.analysis.standard.StandardAnalyzer;
 
-import org.apache.lucene.analysis.EnglishAnalyzer;
+import org.apache.lucene.analysis.en.EnglishAnalyzer;
 
 import java.io.BufferedWriter;
 import org.apache.lucene.util.BytesRef;
