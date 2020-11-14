@@ -27,7 +27,7 @@ import org.apache.lucene.index.PostingsEnum;
 import org.apache.lucene.index.DirectoryReader;
 import org.apache.lucene.index.IndexWriter;
 import org.apache.lucene.index.IndexWriterConfig;
-
+import org.apache.lucene.analysis.en.EnglishAnalyzer;
 import org.apache.lucene.document.Field;
 import org.apache.lucene.document.FieldType;
 import org.apache.lucene.document.TextField;
@@ -186,7 +186,7 @@ public class QueryIndexer
     {
         // Need to use the same analyzer and index directory throughout, so
         // initialize them here
-        this.analyzer = new StandardAnalyzer();
+        this.analyzer = new EnglishAnalyzer();
         this.directory = FSDirectory.open(Paths.get(INDEX_DIRECTORY));
     }
 
