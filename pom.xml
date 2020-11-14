@@ -5,8 +5,8 @@
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>ie.tcd.trrip</groupId>
-  <artifactId>example5</artifactId>
-  <version>1.2</version>
+  <artifactId>search_pro</artifactId>
+  <version>1.0</version>
 
   <name>SearchQuerry</name>
   <!-- FIXME change it to the project's website -->
