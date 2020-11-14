@@ -242,7 +242,7 @@ public class QueryIndexer
     public String searchQuerry(String text,IndexSearcher isearcher,DirectoryReader ireader,int counter) throws IOException,ParseException
     {
 
-		Analyzer analyzer = new StandardAnalyzer();
+		Analyzer analyzer = new EnglishAnalyzer();
         QueryParser parser = new QueryParser("content", analyzer);
 
         
