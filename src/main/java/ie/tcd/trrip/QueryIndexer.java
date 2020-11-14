@@ -9,6 +9,9 @@ import java.nio.file.Files;
 import java.io.FileWriter;
 import org.apache.lucene.analysis.Analyzer;
 import org.apache.lucene.analysis.standard.StandardAnalyzer;
+
+import org.apache.lucene.analysis.en.EnglishAnalyzer;
+
 import java.io.BufferedWriter;
 import org.apache.lucene.util.BytesRef;
 
@@ -27,7 +30,6 @@ import org.apache.lucene.index.PostingsEnum;
 import org.apache.lucene.index.DirectoryReader;
 import org.apache.lucene.index.IndexWriter;
 import org.apache.lucene.index.IndexWriterConfig;
-import org.apache.lucene.analysis.en.EnglishAnalyzer;
 import org.apache.lucene.document.Field;
 import org.apache.lucene.document.FieldType;
 import org.apache.lucene.document.TextField;
