@@ -30,7 +30,11 @@
       <artifactId>lucene-queryparser</artifactId>
       <version>8.6.3</version>
     </dependency>
-    
+    <dependency>
+      <groupId>org.apache.lucene</groupId>
+      <artifactId>lucene-common</artifactId>
+      <version>8.6.3</version>
+    </dependency>
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
