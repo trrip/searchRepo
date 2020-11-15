@@ -217,7 +217,7 @@ public class QueryIndexer
             doc.add(new StringField("id", model.id, Field.Store.YES));
             doc.add(new StringField("bib", model.biblo, Field.Store.YES));
             doc.add(new StringField("author", model.author, Field.Store.YES));
-\            doc.add(new Field("content", model.content, ft)); // creating content feild and then adding content to that.
+            doc.add(new Field("content", model.content, ft)); // creating content feild and then adding content to that.
             iwriter.addDocument(doc);
         }
         System.out.println("we have compleated the writing part.");
@@ -268,7 +268,7 @@ public class QueryIndexer
             Query query = parser.parse(text);
 
             // Get the set of results
-            ScoreDoc[] hits = isearcher.search(query, 300).scoreDocs;
+            ScoreDoc[] hits = isearcher.search(query, 100).scoreDocs;
             String finalContent = "";
             // Print the results
             for (int i = 0; i < hits.length; i++)
