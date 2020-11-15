@@ -1,11 +1,19 @@
-# Lucene Example 5
-# orginal scripts by Dr. Gary Munnelly
-# adapted for 2020 by Colin Daly
+# Lucene Assignment 1
+
+# Indexing and mesuring the performence of the system using trecEval for cranfeild data set
 
 ## Build
 
-```mvn package```
+`cd serch/pro/searchRepo`
+`mvn package`
 
 ## Run
 
-```java -jar target/example5-1.2.jar ../corpus/*```
+`java -jar target/search_pro-1.0.jar`
+
+## Evaulating the performance
+
+```
+cd trec_Eval
+./trec_eval ../data/cranqrel ../../index/result
+```
