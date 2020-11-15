@@ -14,7 +14,7 @@ import org.apache.lucene.analysis.en.EnglishAnalyzer;
 
 import java.io.BufferedWriter;
 import org.apache.lucene.util.BytesRef;
-
+import java.util.HashMap;
 import org.apache.lucene.queryparser.classic.MultiFieldQueryParser;
 
 import org.apache.lucene.document.Document;
