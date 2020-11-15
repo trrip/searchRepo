@@ -195,7 +195,9 @@ public class QueryIndexer
     {
         // Need to use the same analyzer and index directory throughout, so
         // initialize them here
-        this.analyzer = new EnglishAnalyzer();
+        // this.analyzer = new EnglishAnalyzer();
+        this.analyzer = new StandardAnalyzer();
+
         this.directory = FSDirectory.open(Paths.get(INDEX_DIRECTORY));
     }
 
@@ -256,7 +258,9 @@ public class QueryIndexer
     public String searchQuerry(String text,IndexSearcher isearcher,DirectoryReader ireader,int counter) throws IOException,ParseException
     {
 
-		Analyzer analyzer = new EnglishAnalyzer();
+//        Analyzer analyzer = new EnglishAnalyzer();
+        Analyzer analyzer = new StandardAnalyzer();
+
         
         // QueryParser parser = new QueryParser("content", analyzer);
 
