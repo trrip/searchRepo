@@ -11,7 +11,7 @@ import org.apache.lucene.analysis.Analyzer;
 import org.apache.lucene.analysis.standard.StandardAnalyzer;
 
 import org.apache.lucene.analysis.en.EnglishAnalyzer;
-
+import org.apache.lucene.search.similarities.BM25Similarity;
 import java.io.BufferedWriter;
 import org.apache.lucene.util.BytesRef;
 import java.util.HashMap;
@@ -230,6 +230,8 @@ public class QueryIndexer
         int counter = 0;
         // Use IndexSearcher to retrieve some arbitrary document from the index        
         IndexSearcher isearcher = new IndexSearcher(ireader);
+        isearcher.setSimilarity(new BM25Similarity());
+
         String finalContent = "";
         for (DocumentModel model : list){
             counter ++;
