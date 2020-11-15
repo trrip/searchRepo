@@ -257,7 +257,7 @@ public class QueryIndexer
         boostedScores.put("Bibliography", 0.02f);
         boostedScores.put("Words", 0.35f);
 
-        String[] content = new String[]{ "title","bib", "author", "content"};
+        String content[] = new String[]{ "title","bib", "author", "content"};
         QueryParser parser = new MultiFieldQueryParser("content", analyzer, boostedScores);
         parser.setAllowLeadingWildcard(true);
 
