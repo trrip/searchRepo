@@ -59,6 +59,7 @@ class DocumentModel {  // model for the document input.
     
     // Document constructor.
     public DocumentModel(String title, String content, String author, String biblo,String id){
+        System.out.println(":"+title+":"+content+":"+autor+":"+biblo+":"+id+":")
         this.title = title;
         this.content = content;
         this.author = author;
@@ -231,8 +232,8 @@ public class QueryIndexer
         int counter = 0;
         // Use IndexSearcher to retrieve some arbitrary document from the index        
         IndexSearcher isearcher = new IndexSearcher(ireader);
-        // isearcher.setSimilarity(new BM25Similarity());
-        isearcher.setSimilarity(new ClassicSimilarity());
+        isearcher.setSimilarity(new BM25Similarity());
+        // isearcher.setSimilarity(new ClassicSimilarity());
 
         
         String finalContent = "";
