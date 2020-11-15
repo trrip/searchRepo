@@ -98,7 +98,7 @@ class DocumentModel {  // model for the document input.
 
                     }else{
                         this.allDocument.add(new DocumentModel(title.replace(".T",""),content.replace(".W",""),author.replace(".A",""),biblo.replace(".B",""),id));
-                        if(fileName.equals("cran.txt")){
+                        if(fileName.equals("data/cran.txt")){
                             System.out.println(":"+title+":"+content+":"+author+":"+biblo+":"+id+":");
                         }
 
