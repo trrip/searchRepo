@@ -59,7 +59,6 @@ class DocumentModel {  // model for the document input.
     
     // Document constructor.
     public DocumentModel(String title, String content, String author, String biblo,String id){
-        System.out.println(":"+title+":"+content+":"+author+":"+biblo+":"+id+":");
         this.title = title;
         this.content = content;
         this.author = author;
@@ -99,6 +98,10 @@ class DocumentModel {  // model for the document input.
 
                     }else{
                         this.allDocument.add(new DocumentModel(title.replace(".T",""),content.replace(".W",""),author.replace(".A",""),biblo.replace(".B",""),id));
+                        if(fileName.equals("cran.txt")){
+                            System.out.println(":"+title+":"+content+":"+author+":"+biblo+":"+id+":");
+                        }
+
                         content = new String();
                         author = new String();
                         biblo = new String();
