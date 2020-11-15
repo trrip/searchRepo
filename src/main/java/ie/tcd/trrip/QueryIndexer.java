@@ -59,7 +59,7 @@ class DocumentModel {  // model for the document input.
     
     // Document constructor.
     public DocumentModel(String title, String content, String author, String biblo,String id){
-        System.out.println(":"+title+":"+content+":"+autor+":"+biblo+":"+id+":");
+        System.out.println(":"+title+":"+content+":"+author+":"+biblo+":"+id+":");
         this.title = title;
         this.content = content;
         this.author = author;
