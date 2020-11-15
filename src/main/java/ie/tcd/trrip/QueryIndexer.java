@@ -12,6 +12,8 @@ import org.apache.lucene.analysis.standard.StandardAnalyzer;
 
 import org.apache.lucene.analysis.en.EnglishAnalyzer;
 import org.apache.lucene.search.similarities.BM25Similarity;
+import org.apache.lucene.search.similarities.ClassicSimilarity;
+
 import java.io.BufferedWriter;
 import org.apache.lucene.util.BytesRef;
 import java.util.HashMap;
