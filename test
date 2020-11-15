@@ -156,3 +156,35 @@ P_200                   all     0.0330
 P_500                   all     0.0147
 P_1000                  all     0.0078
 
+
+1500
+runid                   all     STANDARD
+num_q                   all     225
+num_ret                 all     307174
+num_rel                 all     1837
+num_rel_ret             all     1828
+map                     all     0.3811
+gm_map                  all     0.2647
+Rprec                   all     0.3595
+bpref                   all     0.9961
+recip_rank              all     0.7859
+iprec_at_recall_0.00    all     0.7986
+iprec_at_recall_0.10    all     0.7568
+iprec_at_recall_0.20    all     0.6441
+iprec_at_recall_0.30    all     0.5201
+iprec_at_recall_0.40    all     0.4392
+iprec_at_recall_0.50    all     0.3785
+iprec_at_recall_0.60    all     0.2882
+iprec_at_recall_0.70    all     0.2335
+iprec_at_recall_0.80    all     0.1620
+iprec_at_recall_0.90    all     0.1191
+iprec_at_recall_1.00    all     0.1069
+P_5                     all     0.4169
+P_10                    all     0.2840
+P_15                    all     0.2199
+P_20                    all     0.1820
+P_30                    all     0.1364
+P_100                   all     0.0555
+P_200                   all     0.0316
+P_500                   all     0.0144
+P_1000                  all     0.0078

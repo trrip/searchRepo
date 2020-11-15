@@ -98,10 +98,6 @@ class DocumentModel {  // model for the document input.
 
                     }else{
                         this.allDocument.add(new DocumentModel(title.replace(".T",""),content.replace(".W",""),author.replace(".A",""),biblo.replace(".B",""),id));
-                        if(fileName.equals("data/cran.txt")){
-                            System.out.println(":"+title+":"+content+":"+author+":"+biblo+":"+id+":");
-                        }
-
                         content = new String();
                         author = new String();
                         biblo = new String();
@@ -195,8 +191,8 @@ public class QueryIndexer
     {
         // Need to use the same analyzer and index directory throughout, so
         // initialize them here
-        // this.analyzer = new EnglishAnalyzer();
-        this.analyzer = new StandardAnalyzer();
+        this.analyzer = new EnglishAnalyzer();
+        // this.analyzer = new StandardAnalyzer();
 
         this.directory = FSDirectory.open(Paths.get(INDEX_DIRECTORY));
     }
@@ -258,8 +254,8 @@ public class QueryIndexer
     public String searchQuerry(String text,IndexSearcher isearcher,DirectoryReader ireader,int counter) throws IOException,ParseException
     {
 
-//        Analyzer analyzer = new EnglishAnalyzer();
-        Analyzer analyzer = new StandardAnalyzer();
+       Analyzer analyzer = new EnglishAnalyzer();
+        // Analyzer analyzer = new StandardAnalyzer();
 
         
         // QueryParser parser = new QueryParser("content", analyzer);
