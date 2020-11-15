@@ -202,7 +202,6 @@ public class QueryIndexer
         ft.setStoreTermVectorPositions(true);
         ft.setStoreTermVectorOffsets(true);
         ft.setStoreTermVectorPayloads(true);
-        ft.setAllowLeadingWildcard(true);
 
 
         // create and configure an index writer
@@ -258,9 +257,10 @@ public class QueryIndexer
         boostedScores.put("Bibliography", 0.02f);
         boostedScores.put("Words", 0.35f);
 
-        String[] content = new String[]{ "title","bib", "author", "words"};
-        QueryParser parser = new MultiFieldQueryParser(content, analyzer, boostedScores);
-        
+        String[] content = new String[]{ "title","bib", "author", "content"};
+        QueryParser parser = new MultiFieldQueryParser("content", analyzer, boostedScores);
+        parser.setAllowLeadingWildcard(true);
+
         // if the user entered a querystring
         if (text.length() > 0)
         {
