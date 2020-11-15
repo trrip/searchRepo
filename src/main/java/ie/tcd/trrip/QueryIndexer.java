@@ -15,6 +15,8 @@ import org.apache.lucene.analysis.en.EnglishAnalyzer;
 import java.io.BufferedWriter;
 import org.apache.lucene.util.BytesRef;
 
+import org.apache.lucene.queryparser.classic.MultiFieldQueryParser;
+
 import org.apache.lucene.document.Document;
 import java.io.File;
 import java.io.FileReader;
@@ -200,6 +202,8 @@ public class QueryIndexer
         ft.setStoreTermVectorPositions(true);
         ft.setStoreTermVectorOffsets(true);
         ft.setStoreTermVectorPayloads(true);
+        ft.setAllowLeadingWildcard(true);
+
 
         // create and configure an index writer
         IndexWriterConfig config = new IndexWriterConfig(analyzer);
@@ -211,7 +215,9 @@ public class QueryIndexer
             Document doc = new Document(); // creating a document 
             doc.add(new StringField("filename", model.title, Field.Store.YES));
             doc.add(new StringField("id", model.id, Field.Store.YES));
-            doc.add(new Field("content", model.content, ft)); // creating content feild and then adding content to that.
+            doc.add(new StringField("bib", model.biblo, Field.Store.YES));
+            doc.add(new StringField("author", model.author, Field.Store.YES));
+\            doc.add(new Field("content", model.content, ft)); // creating content feild and then adding content to that.
             iwriter.addDocument(doc);
         }
         System.out.println("we have compleated the writing part.");
@@ -228,7 +234,7 @@ public class QueryIndexer
         String finalContent = "";
         for (DocumentModel model : list){
             counter ++;
-            finalContent = finalContent + this.searchQuerry(model.content.replace("?",""),isearcher,ireader,counter);
+            finalContent = finalContent + this.searchQuerry(model.content,isearcher,ireader,counter);
         }
                 // close everything when we're done
         ireader.close();
@@ -243,8 +249,17 @@ public class QueryIndexer
     {
 
 		Analyzer analyzer = new EnglishAnalyzer();
-        QueryParser parser = new QueryParser("content", analyzer);
+        
+        // QueryParser parser = new QueryParser("content", analyzer);
 
+        HashMap<String, Float> boostedScores = new HashMap<String, Float>();
+        boostedScores.put("Title", 0.65f);
+        boostedScores.put("Author", 0.04f);
+        boostedScores.put("Bibliography", 0.02f);
+        boostedScores.put("Words", 0.35f);
+
+        String[] content = new String[]{ "title","bib", "author", "words"};
+        QueryParser parser = new MultiFieldQueryParser(content, analyzer, boostedScores);
         
         // if the user entered a querystring
         if (text.length() > 0)
@@ -253,7 +268,7 @@ public class QueryIndexer
             Query query = parser.parse(text);
 
             // Get the set of results
-            ScoreDoc[] hits = isearcher.search(query, 30).scoreDocs;
+            ScoreDoc[] hits = isearcher.search(query, 300).scoreDocs;
             String finalContent = "";
             // Print the results
             for (int i = 0; i < hits.length; i++)
