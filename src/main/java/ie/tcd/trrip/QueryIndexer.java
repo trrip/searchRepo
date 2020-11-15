@@ -95,7 +95,7 @@ class DocumentModel {  // model for the document input.
                     if(id.equals("")) {
 
                     }else{
-                        this.allDocument.add(new DocumentModel(title,content.replace(".W",""),author,biblo,id));
+                        this.allDocument.add(new DocumentModel(title.replace(".T",""),content.replace(".W",""),author.replace(".A",""),biblo.replace(".B",""),id));
                         content = new String();
                         author = new String();
                         biblo = new String();
@@ -121,7 +121,6 @@ class DocumentModel {  // model for the document input.
 
                     switch(token){
                         case "I Token":
-                      
 
                         break;
                         case "T Token":
@@ -212,7 +211,7 @@ public class QueryIndexer
         for (DocumentModel model : list)
         {
             Document doc = new Document(); // creating a document 
-            doc.add(new StringField("filename", model.title, Field.Store.YES));
+            doc.add(new StringField("title", model.title, Field.Store.YES));
             doc.add(new StringField("id", model.id, Field.Store.YES));
             doc.add(new StringField("bib", model.biblo, Field.Store.YES));
             doc.add(new StringField("author", model.author, Field.Store.YES));
@@ -230,8 +229,10 @@ public class QueryIndexer
         int counter = 0;
         // Use IndexSearcher to retrieve some arbitrary document from the index        
         IndexSearcher isearcher = new IndexSearcher(ireader);
-        isearcher.setSimilarity(new BM25Similarity());
+        // isearcher.setSimilarity(new BM25Similarity());
+        isearcher.setSimilarity(new ClassicSimilarity());
 
+        
         String finalContent = "";
         for (DocumentModel model : list){
             counter ++;
