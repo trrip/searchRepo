@@ -252,13 +252,12 @@ public class QueryIndexer
         // QueryParser parser = new QueryParser("content", analyzer);
 
         HashMap<String, Float> boostedScores = new HashMap<String, Float>();
-        boostedScores.put("Title", 0.65f);
-        boostedScores.put("Author", 0.04f);
-        boostedScores.put("Bibliography", 0.02f);
-        boostedScores.put("Words", 0.35f);
-
-        
-        QueryParser parser = new MultiFieldQueryParser({ "title","bib", "author", "content"}, analyzer, boostedScores);
+        boostedScores.put("title", 0.65f);
+        boostedScores.put("author", 0.04f);
+        boostedScores.put("bib", 0.02f);
+        boostedScores.put("content", 0.35f);
+        String[] contentType = new String[]{ "title","bib", "author", "content"};
+        QueryParser parser = new MultiFieldQueryParser(contentType, analyzer, boostedScores);
         parser.setAllowLeadingWildcard(true);
 
         // if the user entered a querystring
