@@ -4,7 +4,7 @@
 
 ## Build
 
-`cd serch/pro/searchRepo`
+`cd serch/pro/searchRepo`<br>
 `mvn package`
 
 ## Run
